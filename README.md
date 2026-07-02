@@ -57,13 +57,21 @@ cp .env.example .env.local
 
 ### 3. Séma és kezdőadatok
 
+Két mód:
+
+**A) A deployolt appból (ajánlott, ha nincs lokális gép)** — a `/api/setup`
+végpont a Vercelről (ami eléri a Neont) létrehozza a sémát és feltölti az
+adatokat. Lásd a Deploy szekciót lentebb.
+
+**B) Lokálisan / parancssorból:**
+
 ```bash
 npm install
 npm run db:push     # séma feltöltése a Neon adatbázisba
 npm run db:seed     # 543 faj + admin fiók + minta termékek
 ```
 
-A seed létrehozza a főadmin fiókot (`terrarisztika1@gmail.com`, jelszó:
+Mindkét mód létrehozza a főadmin fiókot (`terrarisztika1@gmail.com`, jelszó:
 `ADMIN_PASSWORD` env vagy alapból `saurus-admin-2026`). **Első bejelentkezés
 után változtasd meg a jelszót** (vagy regisztrálj ezzel az emaillel, és
 automatikusan admin szerepkört kapsz).
@@ -76,11 +84,21 @@ npm run dev         # http://localhost:3000
 
 ## Deploy (Vercel + Neon)
 
-1. Importáld a repót a Vercelre.
-2. A Vercel Storage fülön csatolj egy Neon integrációt, vagy add meg kézzel a
-   `DATABASE_URL`, `AUTH_SECRET`, `ADMIN_EMAILS` env változókat.
-3. Az első deploy után futtasd egyszer a `npm run db:push` és `npm run db:seed`
-   parancsokat (lokálisan a production `DATABASE_URL`-lal).
+1. Importáld a GitHub repót a Vercelre.
+2. Add meg a Vercel projektben az env változókat (Settings → Environment
+   Variables): `DATABASE_URL` (Neon pooled string), `AUTH_SECRET`,
+   `ADMIN_EMAILS`, `ADMIN_PASSWORD` (opcionális), `SETUP_SECRET` (tetszőleges
+   random string).
+3. Deploy után **egyszer** hívd meg a setup végpontot (ez hozza létre a
+   táblákat és tölti fel a 543 fajt, az admin fiókot és a minta termékeket —
+   idempotens, többször is lefuttatható):
+
+   ```
+   https://<a-te-appod>.vercel.app/api/setup?key=<SETUP_SECRET>
+   ```
+
+   Sikeres válasz JSON-ben visszaadja a fajok számát és az admin adatokat.
+   Ezután jelentkezz be a `/login` oldalon a főadmin fiókkal.
 
 ## Adatmodell / Data model
 

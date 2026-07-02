@@ -7,7 +7,7 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { sql } from "drizzle-orm";
 import * as schema from "../src/lib/db/schema";
-import { buildFullSpeciesList, ratingFor } from "./species-data";
+import { buildFullSpeciesList, ratingFor } from "../src/lib/species-data";
 
 async function main() {
   const url = process.env.DATABASE_URL;
