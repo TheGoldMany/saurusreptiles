@@ -1,21 +1,12 @@
 import { asc, eq, sql } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { Gem, Star } from "lucide-react";
 import { getDb } from "@/lib/db";
 import { species, userSpecies } from "@/lib/db/schema";
 import { getCurrentUser } from "@/lib/auth";
 import { getDict, loc } from "@/lib/i18n";
 import { RARITY_ORDER, RARITY_STYLES, type Rarity } from "@/lib/packs";
-
-const CATEGORY_EMOJI: Record<string, string> = {
-  snake: "🐍",
-  lizard: "🦎",
-  gecko: "🦎",
-  turtle: "🐢",
-  amphibian: "🐸",
-  invertebrate: "🕷️",
-  crocodilian: "🐊",
-};
 
 export default async function CollectionPage({
   searchParams,
@@ -60,21 +51,21 @@ export default async function CollectionPage({
 
   return (
     <div>
-      <h1 className="text-3xl font-black text-emerald-950">
+      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
         {dict.collection.title}
       </h1>
       <p className="mt-2 text-stone-500">{dict.collection.subtitle}</p>
 
-      <div className="mt-6 rounded-2xl border border-emerald-100 bg-white p-5">
-        <div className="flex items-center justify-between text-sm font-semibold text-stone-600">
+      <div className="mt-6 rounded-xl border border-stone-200 bg-white p-5">
+        <div className="flex items-center justify-between text-sm font-medium text-stone-600">
           <span>{dict.collection.progress}</span>
-          <span>
+          <span className="tabular-nums">
             {owned.length} / {totalCount?.count ?? 0}
           </span>
         </div>
-        <div className="mt-2 h-3 overflow-hidden rounded-full bg-stone-100">
+        <div className="mt-2 h-2 overflow-hidden rounded-full bg-stone-100">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500"
+            className="h-full rounded-full bg-brand-500"
             style={{
               width: `${totalCount?.count ? Math.round((owned.length / totalCount.count) * 100) : 0}%`,
             }}
@@ -85,10 +76,10 @@ export default async function CollectionPage({
       <div className="mt-6 flex flex-wrap gap-2">
         <Link
           href="/collection"
-          className={`rounded-full px-3 py-1.5 text-sm font-medium ${
+          className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
             !rarity && !category
-              ? "bg-emerald-600 text-white"
-              : "bg-white text-stone-600"
+              ? "border-brand-600 bg-brand-600 text-white"
+              : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
           }`}
         >
           {dict.common.all}
@@ -97,9 +88,9 @@ export default async function CollectionPage({
           <Link
             key={r}
             href={`/collection?rarity=${r}`}
-            className={`rounded-full border px-3 py-1.5 text-sm font-medium ${
+            className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
               rarity === r
-                ? "bg-emerald-600 text-white"
+                ? "border-brand-600 bg-brand-600 text-white"
                 : `bg-white ${RARITY_STYLES[r].text} ${RARITY_STYLES[r].border}`
             }`}
           >
@@ -110,23 +101,23 @@ export default async function CollectionPage({
           <Link
             key={c}
             href={`/collection?category=${c}`}
-            className={`rounded-full px-3 py-1.5 text-sm font-medium ${
+            className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
               category === c
-                ? "bg-emerald-600 text-white"
-                : "bg-white text-stone-600"
+                ? "border-brand-600 bg-brand-600 text-white"
+                : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
             }`}
           >
-            {CATEGORY_EMOJI[c]} {dict.speciesCategories[c] ?? c}
+            {dict.speciesCategories[c] ?? c}
           </Link>
         ))}
       </div>
 
       {filtered.length === 0 ? (
-        <div className="mt-12 text-center">
+        <div className="mt-16 text-center">
           <p className="text-stone-500">{dict.collection.empty}</p>
           <Link
             href="/packs"
-            className="mt-4 inline-block rounded-xl bg-emerald-600 px-6 py-3 font-bold text-white hover:bg-emerald-700"
+            className="mt-4 inline-block rounded-lg bg-brand-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-700"
           >
             {dict.nav.packs}
           </Link>
@@ -138,27 +129,29 @@ export default async function CollectionPage({
             return (
               <div
                 key={sp.id}
-                className={`flex flex-col items-center gap-1 rounded-2xl border-2 p-4 text-center ${styles.border} ${styles.bg}`}
+                className={`flex flex-col items-center gap-1.5 rounded-xl border p-4 text-center ${styles.border} ${styles.bg}`}
               >
-                <span className="text-3xl">
-                  {CATEGORY_EMOJI[sp.category] ?? "🦎"}
-                </span>
-                <span className="text-sm font-bold leading-tight text-stone-800">
+                <Gem className={`h-7 w-7 ${styles.text}`} strokeWidth={1.5} />
+                <span className="text-sm font-semibold leading-tight text-stone-800">
                   {loc(locale, sp.nameHu, sp.nameEn)}
                 </span>
-                <span className="text-[10px] italic text-stone-500">
+                <span className="text-[10px] italic text-stone-400">
                   {sp.latinName}
                 </span>
                 <span
-                  className={`rounded-full border px-2 py-0.5 text-[10px] font-black uppercase ${styles.border} ${styles.text}`}
+                  className={`rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase ${styles.border} ${styles.text}`}
                 >
                   {dict.rarity[sp.rarity]}
                 </span>
-                <span className="text-xs font-bold text-stone-600">
-                  ⭐ {sp.rating}
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-stone-600">
+                  <Star
+                    className="h-3.5 w-3.5 fill-amber-400 text-amber-400"
+                    strokeWidth={2}
+                  />
+                  {sp.rating}
                 </span>
                 {count > 1 && (
-                  <span className="text-[10px] font-semibold text-stone-400">
+                  <span className="text-[10px] font-medium text-stone-400">
                     ×{count}
                   </span>
                 )}

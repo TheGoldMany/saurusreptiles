@@ -1,4 +1,5 @@
 import { desc } from "drizzle-orm";
+import { Coins } from "lucide-react";
 import { getDb } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { getCurrentUser } from "@/lib/auth";
@@ -14,12 +15,12 @@ export default async function AdminUsersPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-black text-emerald-950">
+      <h1 className="text-2xl font-bold tracking-tight text-stone-900">
         {dict.admin.users}
       </h1>
-      <div className="mt-6 overflow-x-auto rounded-2xl border border-emerald-100 bg-white">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-stone-200 bg-white">
         <table className="w-full text-sm">
-          <thead className="bg-emerald-50 text-left text-xs font-bold uppercase text-emerald-800">
+          <thead className="border-b border-stone-200 bg-stone-50 text-left text-xs font-semibold uppercase tracking-wider text-stone-500">
             <tr>
               <th className="px-4 py-3">{dict.common.name}</th>
               <th className="px-4 py-3">Email</th>
@@ -31,14 +32,14 @@ export default async function AdminUsersPage() {
           </thead>
           <tbody>
             {rows.map((u) => (
-              <tr key={u.id} className="border-t border-stone-50">
+              <tr key={u.id} className="border-t border-stone-100">
                 <td className="px-4 py-3 font-medium text-stone-800">
                   {u.name}
                 </td>
                 <td className="px-4 py-3 text-stone-500">{u.email}</td>
                 <td className="px-4 py-3">
                   {u.role === "admin" ? (
-                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-bold text-emerald-800">
+                    <span className="rounded-full bg-brand-100 px-2 py-0.5 text-xs font-semibold text-brand-700">
                       {dict.profile.admin}
                     </span>
                   ) : (
@@ -46,7 +47,10 @@ export default async function AdminUsersPage() {
                   )}
                 </td>
                 <td className="px-4 py-3 text-right font-semibold text-amber-700">
-                  🪙 {formatCoins(u.coins, locale)}
+                  <span className="inline-flex items-center gap-1">
+                    <Coins className="h-3.5 w-3.5" strokeWidth={2} />
+                    {formatCoins(u.coins, locale)}
+                  </span>
                 </td>
                 <td className="px-4 py-3 text-stone-400">
                   {formatDate(u.createdAt, locale)}

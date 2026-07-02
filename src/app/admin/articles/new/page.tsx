@@ -5,7 +5,7 @@ export default async function NewArticlePage() {
   const { dict } = await getDict();
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-black text-emerald-950">
+      <h1 className="mb-6 text-2xl font-bold tracking-tight text-stone-900">
         {dict.admin.article.new}
       </h1>
       <ArticleForm />

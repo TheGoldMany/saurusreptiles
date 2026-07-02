@@ -16,7 +16,7 @@ export default async function CarePage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-black text-emerald-950">
+      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
         {dict.care.title}
       </h1>
       <p className="mt-2 text-stone-500">{dict.care.subtitle}</p>
@@ -29,7 +29,7 @@ export default async function CarePage() {
             <Link
               key={a.id}
               href={`/care/${a.slug}`}
-              className="group flex flex-col rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm transition hover:shadow-md"
+              className="group flex flex-col rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition hover:shadow-md"
             >
               <span className="text-xs font-bold uppercase tracking-wide text-emerald-600">
                 {dict.care.categories[a.category] ?? a.category}
@@ -42,7 +42,7 @@ export default async function CarePage() {
               </p>
               <div className="mt-4 flex items-center justify-between text-xs text-stone-400">
                 <span>{formatDate(a.createdAt, locale)}</span>
-                <span className="font-semibold text-emerald-700">
+                <span className="font-semibold text-brand-700">
                   {dict.care.readMore} →
                 </span>
               </div>

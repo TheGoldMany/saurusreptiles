@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 import { getDb } from "@/lib/db";
 import { animals } from "@/lib/db/schema";
 import { getDict, loc } from "@/lib/i18n";
+import { ImagePlaceholder } from "@/components/Placeholder";
 
 export default async function AnimalPage({
   params,
@@ -28,12 +30,13 @@ export default async function AnimalPage({
     <div>
       <Link
         href="/animals"
-        className="text-sm font-semibold text-emerald-700 hover:underline"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-500 transition-colors hover:text-brand-700"
       >
-        ← {dict.common.back}
+        <ArrowLeft className="h-4 w-4" strokeWidth={2} />
+        {dict.common.back}
       </Link>
-      <div className="mt-6 grid gap-8 lg:grid-cols-2">
-        <div className="flex min-h-72 items-center justify-center overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-teal-50 text-8xl">
+      <div className="mt-6 grid gap-10 lg:grid-cols-2">
+        <div className="aspect-square overflow-hidden rounded-2xl border border-stone-200">
           {animal.imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -42,27 +45,27 @@ export default async function AnimalPage({
               className="h-full w-full object-cover"
             />
           ) : (
-            "🦎"
+            <ImagePlaceholder className="h-full w-full" iconClassName="h-16 w-16" />
           )}
         </div>
         <div>
-          <h1 className="text-3xl font-black text-emerald-950">
+          <h1 className="text-3xl font-bold tracking-tight text-stone-900">
             {loc(locale, animal.nameHu, animal.nameEn)}
           </h1>
-          <p className="mt-1 text-lg italic text-stone-500">
+          <p className="mt-1 text-lg italic text-stone-400">
             {animal.latinName}
           </p>
-          <div className="mt-4 flex gap-2 text-sm font-semibold">
-            <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-800">
+          <div className="mt-4 flex gap-2 text-sm font-medium">
+            <span className="rounded-full bg-brand-50 px-3 py-1 text-brand-700">
               {dict.animals.sex}: {dict.animals.sexes[animal.sex] ?? animal.sex}
             </span>
             {animal.birthYear && (
-              <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-800">
+              <span className="rounded-full bg-brand-50 px-3 py-1 text-brand-700">
                 {dict.animals.birthYear}: {animal.birthYear}
               </span>
             )}
           </div>
-          <p className="mt-6 whitespace-pre-line text-stone-600">
+          <p className="mt-6 whitespace-pre-line leading-relaxed text-stone-600">
             {loc(locale, animal.descHu, animal.descEn)}
           </p>
         </div>

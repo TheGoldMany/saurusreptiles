@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { Banknote, CreditCard, Truck } from "lucide-react";
 import { placeOrder, type CheckoutState } from "@/actions/checkout";
 import { useI18n } from "@/lib/i18n/client";
 
@@ -85,28 +86,31 @@ export default function CheckoutForm({
           {dict.checkout.payment}
         </h2>
         <div className="flex flex-col gap-2">
-          <label className="flex items-center gap-3 rounded-xl border border-stone-200 px-4 py-3 text-sm font-medium has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-50">
+          <label className="flex items-center gap-3 rounded-lg border border-stone-200 px-4 py-3 text-sm font-medium transition-colors has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50">
             <input
               type="radio"
               name="paymentMethod"
               value="transfer"
               defaultChecked
-              className="accent-emerald-600"
+              className="accent-brand-600"
             />
-            🏦 {dict.checkout.transfer}
+            <Banknote className="h-5 w-5 text-stone-500" strokeWidth={1.75} />
+            {dict.checkout.transfer}
           </label>
-          <label className="flex items-center gap-3 rounded-xl border border-stone-200 px-4 py-3 text-sm font-medium has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-50">
+          <label className="flex items-center gap-3 rounded-lg border border-stone-200 px-4 py-3 text-sm font-medium transition-colors has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50">
             <input
               type="radio"
               name="paymentMethod"
               value="cod"
-              className="accent-emerald-600"
+              className="accent-brand-600"
             />
-            📦 {dict.checkout.cod}
+            <Truck className="h-5 w-5 text-stone-500" strokeWidth={1.75} />
+            {dict.checkout.cod}
           </label>
-          <label className="flex items-center gap-3 rounded-xl border border-stone-200 px-4 py-3 text-sm font-medium text-stone-400">
+          <label className="flex items-center gap-3 rounded-lg border border-stone-200 px-4 py-3 text-sm font-medium text-stone-400">
             <input type="radio" name="paymentMethod" value="card" disabled />
-            💳 {dict.checkout.card}
+            <CreditCard className="h-5 w-5" strokeWidth={1.75} />
+            {dict.checkout.card}
           </label>
         </div>
       </section>

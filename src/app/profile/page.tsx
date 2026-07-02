@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { desc, eq, sql } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import { ArrowRight, Coins, Gem } from "lucide-react";
 import { getDb } from "@/lib/db";
 import { coinTransactions, species, userSpecies } from "@/lib/db/schema";
 import { getCurrentUser } from "@/lib/auth";
@@ -39,48 +40,53 @@ export default async function ProfilePage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-black text-emerald-950">
+      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
         {dict.profile.title}
       </h1>
 
       <div className="mt-8 grid gap-5 sm:grid-cols-3">
-        <div className="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-6">
-          <p className="text-sm font-semibold text-amber-800">
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-6">
+          <p className="flex items-center gap-1.5 text-sm font-medium text-amber-800">
+            <Coins className="h-4 w-4" strokeWidth={2} />
             {dict.profile.balance}
           </p>
-          <p className="mt-1 text-3xl font-black text-amber-700">
-            🪙 {formatCoins(user.coins, locale)}
+          <p className="mt-2 text-3xl font-bold text-amber-700">
+            {formatCoins(user.coins, locale)}
           </p>
           <Link
             href="/packs"
-            className="mt-3 inline-block rounded-xl bg-amber-600 px-4 py-2 text-sm font-bold text-white hover:bg-amber-700"
+            className="mt-4 inline-block rounded-lg bg-amber-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-amber-700"
           >
             {dict.home.openPacks}
           </Link>
         </div>
-        <div className="rounded-2xl border border-emerald-100 bg-white p-6">
-          <p className="text-sm font-semibold text-stone-500">
+        <div className="rounded-xl border border-stone-200 bg-white p-6">
+          <p className="flex items-center gap-1.5 text-sm font-medium text-stone-500">
+            <Gem className="h-4 w-4" strokeWidth={2} />
             {dict.profile.collectionProgress}
           </p>
-          <p className="mt-1 text-3xl font-black text-emerald-700">
-            {collected?.count ?? 0} / {totalSpecies?.count ?? 0}
+          <p className="mt-2 text-3xl font-bold text-stone-900">
+            {collected?.count ?? 0}{" "}
+            <span className="text-lg font-medium text-stone-400">
+              / {totalSpecies?.count ?? 0}
+            </span>
           </p>
           <p className="text-xs text-stone-400">
             {dict.profile.speciesCollected}
           </p>
           <Link
             href="/collection"
-            className="mt-3 inline-block rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white hover:bg-emerald-700"
+            className="mt-4 inline-block rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
           >
             {dict.nav.collection}
           </Link>
         </div>
-        <div className="rounded-2xl border border-emerald-100 bg-white p-6 text-sm">
-          <p className="font-bold text-stone-800">{user.name}</p>
+        <div className="rounded-xl border border-stone-200 bg-white p-6 text-sm">
+          <p className="font-semibold text-stone-800">{user.name}</p>
           <p className="text-stone-500">{user.email}</p>
-          <p className="mt-2 text-stone-500">
+          <p className="mt-3 text-stone-500">
             {dict.profile.role}:{" "}
-            <span className="font-semibold text-emerald-700">
+            <span className="font-semibold text-brand-700">
               {user.role === "admin" ? dict.profile.admin : dict.profile.user}
             </span>
           </p>
@@ -89,24 +95,25 @@ export default async function ProfilePage() {
           </p>
           <Link
             href="/orders"
-            className="mt-3 inline-block text-sm font-semibold text-emerald-700 hover:underline"
+            className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand-700 hover:text-brand-800"
           >
-            {dict.nav.orders} →
+            {dict.nav.orders}
+            <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
           </Link>
         </div>
       </div>
 
-      <h2 className="mt-12 text-xl font-black text-emerald-950">
+      <h2 className="mt-12 text-xl font-semibold tracking-tight text-stone-900">
         {dict.profile.transactions}
       </h2>
       {transactions.length === 0 ? (
         <p className="mt-4 text-stone-500">{dict.profile.noTransactions}</p>
       ) : (
-        <div className="mt-4 overflow-x-auto rounded-2xl border border-emerald-100 bg-white">
+        <div className="mt-4 overflow-x-auto rounded-xl border border-stone-200 bg-white">
           <table className="w-full text-sm">
             <tbody>
               {transactions.map((tx) => (
-                <tr key={tx.id} className="border-b border-stone-50">
+                <tr key={tx.id} className="border-b border-stone-100 last:border-0">
                   <td className="px-4 py-3 text-stone-600">
                     {reasonLabel(tx.reason)}
                   </td>
@@ -114,12 +121,12 @@ export default async function ProfilePage() {
                     {formatDate(tx.createdAt, locale)}
                   </td>
                   <td
-                    className={`px-4 py-3 text-right font-bold ${
-                      tx.amount > 0 ? "text-emerald-600" : "text-red-500"
+                    className={`px-4 py-3 text-right font-semibold tabular-nums ${
+                      tx.amount > 0 ? "text-brand-600" : "text-red-500"
                     }`}
                   >
                     {tx.amount > 0 ? "+" : ""}
-                    {formatCoins(tx.amount, locale)} 🪙
+                    {formatCoins(tx.amount, locale)}
                   </td>
                 </tr>
               ))}

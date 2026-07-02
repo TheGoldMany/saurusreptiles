@@ -25,7 +25,7 @@ export default async function EditArticlePage({
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-black text-emerald-950">
+      <h1 className="mb-6 text-2xl font-bold tracking-tight text-stone-900">
         {dict.admin.article.edit}
       </h1>
       <ArticleForm article={article} />

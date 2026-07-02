@@ -1,5 +1,6 @@
 import { desc, eq, inArray } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import { CheckCircle2, Coins } from "lucide-react";
 import { getDb } from "@/lib/db";
 import { orderItems, orders } from "@/lib/db/schema";
 import { getCurrentUser } from "@/lib/auth";
@@ -47,43 +48,48 @@ export default async function OrdersPage({
   return (
     <div>
       {success && (
-        <div className="mb-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-          <p className="text-4xl">🎉</p>
-          <h2 className="mt-2 text-xl font-black text-emerald-900">
-            {dict.checkout.success}
-          </h2>
-          <p className="mt-1 text-sm text-emerald-700">
-            {dict.checkout.successText}
-          </p>
+        <div className="mb-8 flex items-start gap-3 rounded-xl border border-brand-200 bg-brand-50 p-5">
+          <CheckCircle2
+            className="mt-0.5 h-6 w-6 shrink-0 text-brand-600"
+            strokeWidth={2}
+          />
+          <div>
+            <h2 className="text-lg font-semibold text-brand-900">
+              {dict.checkout.success}
+            </h2>
+            <p className="mt-1 text-sm text-brand-700/80">
+              {dict.checkout.successText}
+            </p>
+          </div>
         </div>
       )}
 
-      <h1 className="text-3xl font-black text-emerald-950">
+      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
         {dict.orders.title}
       </h1>
 
       {myOrders.length === 0 ? (
-        <p className="mt-12 text-center text-stone-500">{dict.orders.empty}</p>
+        <p className="mt-16 text-center text-stone-500">{dict.orders.empty}</p>
       ) : (
         <div className="mt-8 flex flex-col gap-4">
           {myOrders.map((order) => (
             <div
               key={order.id}
-              className="rounded-2xl border border-emerald-100 bg-white p-5"
+              className="rounded-xl border border-stone-200 bg-white p-5"
             >
               <div className="flex flex-wrap items-center gap-3">
-                <span className="font-black text-emerald-900">
+                <span className="font-semibold text-stone-900">
                   {dict.orders.order} #{order.id}
                 </span>
                 <span
-                  className={`rounded-full px-3 py-1 text-xs font-bold ${STATUS_COLORS[order.status] ?? ""}`}
+                  className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_COLORS[order.status] ?? ""}`}
                 >
                   {dict.orders.statuses[order.status] ?? order.status}
                 </span>
                 <span className="text-sm text-stone-400">
                   {formatDate(order.createdAt, locale)}
                 </span>
-                <span className="ml-auto font-black text-emerald-800">
+                <span className="ml-auto font-semibold text-stone-900">
                   {formatHuf(order.totalHuf, locale)}
                 </span>
               </div>
@@ -99,12 +105,13 @@ export default async function OrdersPage({
                     </li>
                   ))}
               </ul>
-              <p className="mt-2 text-xs text-stone-400">
+              <p className="mt-3 flex items-center gap-2 text-xs text-stone-400">
                 {dict.orders.payments[order.paymentMethod] ??
                   order.paymentMethod}
                 {order.coinsAwarded && (
-                  <span className="ml-2 text-amber-600">
-                    🪙 +{formatHuf(order.totalHuf, locale).replace(" Ft", "")}{" "}
+                  <span className="inline-flex items-center gap-1 text-amber-600">
+                    <Coins className="h-3.5 w-3.5" strokeWidth={2} />+
+                    {formatHuf(order.totalHuf, locale).replace(" Ft", "")}{" "}
                     SaurusCoin
                   </span>
                 )}

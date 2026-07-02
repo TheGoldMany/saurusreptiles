@@ -29,14 +29,14 @@ export default async function ArticlePage({
     <article className="mx-auto max-w-3xl">
       <Link
         href="/care"
-        className="text-sm font-semibold text-emerald-700 hover:underline"
+        className="text-sm font-medium text-stone-500 transition-colors hover:text-brand-700"
       >
         ← {dict.care.title}
       </Link>
       <span className="mt-6 block text-xs font-bold uppercase tracking-wide text-emerald-600">
         {dict.care.categories[article.category] ?? article.category}
       </span>
-      <h1 className="mt-2 text-4xl font-black text-emerald-950">
+      <h1 className="mt-2 text-4xl font-bold tracking-tight text-stone-900">
         {loc(locale, article.titleHu, article.titleEn)}
       </h1>
       <p className="mt-2 text-sm text-stone-400">

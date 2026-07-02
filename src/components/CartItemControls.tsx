@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import { removeFromCart, setCartQuantity } from "@/actions/cart";
 import { useI18n } from "@/lib/i18n/client";
 
@@ -18,17 +19,18 @@ export default function CartItemControls({
 
   return (
     <div className="flex items-center gap-3">
-      <div className="flex items-center rounded-full border border-stone-200">
+      <div className="flex items-center rounded-lg border border-stone-200">
         <button
           disabled={pending}
           onClick={() =>
             startTransition(() => setCartQuantity(productId, quantity - 1))
           }
-          className="px-3 py-1 text-stone-600 hover:text-emerald-700 disabled:opacity-50"
+          aria-label="−"
+          className="p-2 text-stone-500 hover:text-brand-700 disabled:opacity-40"
         >
-          −
+          <Minus className="h-3.5 w-3.5" strokeWidth={2.5} />
         </button>
-        <span className="min-w-8 text-center text-sm font-semibold">
+        <span className="min-w-8 text-center text-sm font-semibold tabular-nums">
           {quantity}
         </span>
         <button
@@ -36,17 +38,19 @@ export default function CartItemControls({
           onClick={() =>
             startTransition(() => setCartQuantity(productId, quantity + 1))
           }
-          className="px-3 py-1 text-stone-600 hover:text-emerald-700 disabled:opacity-50"
+          aria-label="+"
+          className="p-2 text-stone-500 hover:text-brand-700 disabled:opacity-40"
         >
-          +
+          <Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
         </button>
       </div>
       <button
         disabled={pending}
         onClick={() => startTransition(() => removeFromCart(productId))}
-        className="text-xs font-medium text-red-500 hover:underline disabled:opacity-50"
+        aria-label={dict.cart.remove}
+        className="rounded-lg p-2 text-stone-400 transition-colors hover:bg-red-50 hover:text-red-500 disabled:opacity-50"
       >
-        {dict.cart.remove}
+        <Trash2 className="h-4 w-4" strokeWidth={1.75} />
       </button>
     </div>
   );

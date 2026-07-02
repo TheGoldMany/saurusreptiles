@@ -1,4 +1,5 @@
 import { desc, eq, inArray } from "drizzle-orm";
+import { Coins } from "lucide-react";
 import { getDb } from "@/lib/db";
 import { orderItems, orders, users } from "@/lib/db/schema";
 import { getDict, loc } from "@/lib/i18n";
@@ -34,21 +35,21 @@ export default async function AdminOrdersPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-black text-emerald-950">
+      <h1 className="text-2xl font-bold tracking-tight text-stone-900">
         {dict.admin.orders}
       </h1>
       <div className="mt-6 flex flex-col gap-4">
         {rows.map(({ order, userName }) => (
           <div
             key={order.id}
-            className="rounded-2xl border border-emerald-100 bg-white p-5"
+            className="rounded-2xl border border-stone-200 bg-white p-5"
           >
             <div className="flex flex-wrap items-center gap-3">
-              <span className="font-black text-emerald-900">#{order.id}</span>
+              <span className="font-semibold text-stone-900">#{order.id}</span>
               <span className="text-sm text-stone-500">
                 {formatDate(order.createdAt, locale)}
               </span>
-              <span className="ml-auto font-black text-emerald-800">
+              <span className="ml-auto font-semibold text-stone-900">
                 {formatHuf(order.totalHuf, locale)}
               </span>
               <OrderStatusSelect orderId={order.id} current={order.status} />
@@ -64,13 +65,18 @@ export default async function AdminOrdersPage() {
                 <p className="text-stone-500">
                   {order.zip} {order.city}, {order.address}
                 </p>
-                <p className="mt-1 text-xs font-semibold text-stone-400">
+                <p className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-stone-400">
                   {dict.orders.payments[order.paymentMethod] ??
                     order.paymentMethod}{" "}
                   ·{" "}
-                  {order.coinsAwarded
-                    ? `🪙 ${dict.admin.order.awarded}`
-                    : dict.admin.order.notAwarded}
+                  {order.coinsAwarded ? (
+                    <span className="inline-flex items-center gap-1 text-amber-600">
+                      <Coins className="h-3.5 w-3.5" strokeWidth={2} />
+                      {dict.admin.order.awarded}
+                    </span>
+                  ) : (
+                    dict.admin.order.notAwarded
+                  )}
                 </p>
               </div>
               <ul className="flex flex-col gap-1 text-stone-600">

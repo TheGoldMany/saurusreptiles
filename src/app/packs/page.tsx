@@ -9,7 +9,7 @@ export default async function PacksPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-black text-emerald-950">
+      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
         {dict.packs.title}
       </h1>
       <p className="mt-2 max-w-2xl text-stone-500">{dict.packs.subtitle}</p>

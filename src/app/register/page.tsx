@@ -15,10 +15,10 @@ export default async function RegisterPage({
 
   return (
     <div className="mx-auto max-w-md">
-      <h1 className="text-center text-3xl font-black text-emerald-950">
+      <h1 className="text-center text-3xl font-bold tracking-tight text-stone-900">
         {dict.auth.registerTitle}
       </h1>
-      <div className="mt-8 rounded-3xl border border-emerald-100 bg-white p-8 shadow-sm">
+      <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-8 shadow-sm">
         <RegisterForm redirectTo={redirectTo ?? "/"} />
       </div>
     </div>

@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { inArray } from "drizzle-orm";
+import { ArrowRight, Coins, ShoppingCart } from "lucide-react";
 import { getDb } from "@/lib/db";
 import { products } from "@/lib/db/schema";
 import { readCart } from "@/lib/cart";
 import { getDict, loc } from "@/lib/i18n";
 import { formatCoins, formatHuf } from "@/lib/utils";
 import CartItemControls from "@/components/CartItemControls";
+import { ImagePlaceholder } from "@/components/Placeholder";
 
 export default async function CartPage() {
   const { dict, locale } = await getDict();
@@ -13,16 +15,19 @@ export default async function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="py-16 text-center">
-        <p className="text-5xl">🛒</p>
-        <h1 className="mt-4 text-2xl font-black text-emerald-950">
+      <div className="py-20 text-center">
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-stone-100 text-stone-400">
+          <ShoppingCart className="h-8 w-8" strokeWidth={1.5} />
+        </span>
+        <h1 className="mt-5 text-2xl font-semibold tracking-tight text-stone-900">
           {dict.cart.empty}
         </h1>
         <Link
           href="/shop"
-          className="mt-6 inline-block rounded-xl bg-emerald-600 px-6 py-3 font-bold text-white hover:bg-emerald-700"
+          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-brand-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-700"
         >
           {dict.cart.goShopping}
+          <ArrowRight className="h-4 w-4" strokeWidth={2} />
         </Link>
       </div>
     );
@@ -53,17 +58,17 @@ export default async function CartPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-black text-emerald-950">
+      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
         {dict.cart.title}
       </h1>
       <div className="mt-8 grid gap-8 lg:grid-cols-3">
-        <div className="flex flex-col gap-4 lg:col-span-2">
+        <div className="flex flex-col gap-3 lg:col-span-2">
           {items.map(({ product, quantity }) => (
             <div
               key={product.id}
-              className="flex items-center gap-4 rounded-2xl border border-emerald-100 bg-white p-4"
+              className="flex items-center gap-4 rounded-xl border border-stone-200 bg-white p-4"
             >
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-emerald-50 text-2xl">
+              <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg">
                 {product.imageUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -72,17 +77,20 @@ export default async function CartPage() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  "🦎"
+                  <ImagePlaceholder
+                    className="h-full w-full"
+                    iconClassName="h-6 w-6"
+                  />
                 )}
               </div>
               <div className="min-w-0 flex-1">
                 <Link
                   href={`/shop/${product.slug}`}
-                  className="font-semibold text-stone-800 hover:text-emerald-800"
+                  className="font-medium text-stone-800 transition-colors hover:text-brand-700"
                 >
                   {loc(locale, product.nameHu, product.nameEn)}
                 </Link>
-                <p className="text-sm font-bold text-emerald-700">
+                <p className="text-sm font-semibold text-stone-500">
                   {formatHuf(product.priceHuf, locale)}
                 </p>
               </div>
@@ -91,30 +99,32 @@ export default async function CartPage() {
                 quantity={quantity}
                 maxStock={product.stock}
               />
-              <span className="w-24 text-right font-black text-stone-800">
+              <span className="w-24 text-right font-semibold text-stone-900">
                 {formatHuf(product.priceHuf * quantity, locale)}
               </span>
             </div>
           ))}
         </div>
 
-        <div className="h-fit rounded-2xl border border-emerald-100 bg-white p-6">
+        <div className="h-fit rounded-xl border border-stone-200 bg-white p-6">
           <div className="flex items-center justify-between text-lg">
-            <span className="font-semibold text-stone-600">
+            <span className="font-medium text-stone-500">
               {dict.common.total}
             </span>
-            <span className="font-black text-emerald-800">
+            <span className="font-bold text-stone-900">
               {formatHuf(total, locale)}
             </span>
           </div>
-          <p className="mt-2 text-sm text-amber-700">
-            {dict.cart.coinsEarn} 🪙 {formatCoins(total, locale)}
+          <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-amber-700">
+            <Coins className="h-4 w-4" strokeWidth={2} />
+            {dict.cart.coinsEarn} {formatCoins(total, locale)}
           </p>
           <Link
             href="/checkout"
-            className="mt-6 block rounded-xl bg-emerald-600 px-6 py-3 text-center font-bold text-white hover:bg-emerald-700"
+            className="mt-6 flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-center font-semibold text-white transition-colors hover:bg-brand-700"
           >
             {dict.cart.checkout}
+            <ArrowRight className="h-4 w-4" strokeWidth={2} />
           </Link>
         </div>
       </div>

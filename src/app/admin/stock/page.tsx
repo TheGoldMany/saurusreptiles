@@ -27,7 +27,7 @@ export default async function AdminStockPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-black text-emerald-950">{t.title}</h1>
+      <h1 className="text-2xl font-bold tracking-tight text-stone-900">{t.title}</h1>
 
       <div className="mt-6">
         <StockForm
@@ -39,12 +39,12 @@ export default async function AdminStockPage() {
         />
       </div>
 
-      <h2 className="mt-10 text-lg font-black text-emerald-950">
+      <h2 className="mt-10 text-lg font-semibold text-stone-900">
         {t.history}
       </h2>
-      <div className="mt-4 overflow-x-auto rounded-2xl border border-emerald-100 bg-white">
+      <div className="mt-4 overflow-x-auto rounded-2xl border border-stone-200 bg-white">
         <table className="w-full text-sm">
-          <thead className="bg-emerald-50 text-left text-xs font-bold uppercase text-emerald-800">
+          <thead className="border-b border-stone-200 bg-stone-50 text-left text-xs font-semibold uppercase tracking-wider text-stone-500">
             <tr>
               <th className="px-4 py-3">{t.product}</th>
               <th className="px-4 py-3 text-right">+/−</th>
@@ -55,7 +55,7 @@ export default async function AdminStockPage() {
           </thead>
           <tbody>
             {movements.map(({ movement, productNameHu, productNameEn }) => (
-              <tr key={movement.id} className="border-t border-stone-50">
+              <tr key={movement.id} className="border-t border-stone-100">
                 <td className="px-4 py-3 font-medium text-stone-800">
                   {loc(locale, productNameHu, productNameEn)}
                 </td>

@@ -22,7 +22,7 @@ export default function StockForm({
   return (
     <form
       action={action}
-      className="flex max-w-xl flex-col gap-4 rounded-2xl border border-emerald-100 bg-white p-5"
+      className="flex max-w-xl flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5"
     >
       <label className="flex flex-col gap-1 text-sm font-medium">
         {t.product}
