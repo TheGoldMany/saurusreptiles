@@ -2,6 +2,8 @@
 
 @theme inline {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-geist-sans), ui-sans-serif,
+    system-ui, sans-serif;
   --color-brand-50: #ecfdf5;
   --color-brand-100: #d1fae5;
   --color-brand-200: #a7f3d0;
@@ -10,6 +12,17 @@
   --color-brand-700: #047857;
   --color-brand-800: #065f46;
   --color-brand-900: #064e3b;
+
+  /* ---- The Primordial Luxury palette (cinematic surfaces) ---- */
+  --color-void: #08090a; /* deepest charcoal obsidian */
+  --color-surface: #111315; /* satin brushed dark slate */
+  --color-surface-2: #16191c;
+  --color-amber-glow: #e58a3c; /* 4500K desert basking glow */
+  --color-cyan-glow: #7dd3fc; /* 6500K daylight LED spectrum */
+  --color-clay: #9e472a; /* red Australian outback terracotta */
+  --color-indigo-night: #1b2440; /* nocturnal moonlit */
+  --color-primary-text: #f3f4f6; /* pristine off-white */
+  --color-muted-text: #889096; /* weathered stone gray */
 }
 
 html {
@@ -92,4 +105,158 @@ body {
   [style*="animation"] {
     animation: none !important;
   }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Cinematic atmosphere                                                     */
+/* ---------------------------------------------------------------------- */
+
+/* Lenis smooth-scroll (from lenis/dist/lenis.css, inlined to avoid an
+   extra network request for four rules). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Glass panel — satin dark slate with a hairline highlight */
+.glass-panel {
+  background: rgba(18, 20, 24, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Cinematic film grain — a tiled fractal-noise data URI, GPU-composited.
+   Sits above content but never intercepts pointer events. */
+.film-grain::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  will-change: transform;
+  animation: grainDrift 0.7s steps(3) infinite;
+}
+
+@keyframes grainDrift {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-2%, 1.5%);
+  }
+  66% {
+    transform: translate(1.5%, -1%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+/* Editorial letterspacing for the cinematic eyebrow labels */
+.tracking-cinematic {
+  letter-spacing: 0.24em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .film-grain::after {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Dark site chrome                                                        */
+/* Set by <ChromeTheme /> while the cinematic route is mounted, so the      */
+/* shared header/footer invert instead of sitting on the dark page as a     */
+/* bright white bar. Every other route is untouched.                        */
+/* ---------------------------------------------------------------------- */
+
+html[data-chrome="dark"] .site-header {
+  background-color: rgba(8, 9, 10, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+html[data-chrome="dark"] .site-footer {
+  background-color: #08090a;
+  border-color: rgba(255, 255, 255, 0.08);
+  margin-top: 0;
+}
+
+/* Text tones */
+html[data-chrome="dark"] :is(.site-header, .site-footer) :is(.text-stone-900) {
+  color: #f3f4f6;
+}
+html[data-chrome="dark"] :is(.site-header, .site-footer) :is(.text-stone-600, .text-stone-700) {
+  color: #c9ced3;
+}
+html[data-chrome="dark"] :is(.site-header, .site-footer) :is(.text-stone-400, .text-stone-500) {
+  color: #889096;
+}
+html[data-chrome="dark"] :is(.site-header, .site-footer) .text-brand-600 {
+  color: #e58a3c;
+}
+
+/* Hover surfaces must not flash light */
+html[data-chrome="dark"] :is(.site-header, .site-footer) .hover\:bg-stone-100:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+html[data-chrome="dark"] :is(.site-header, .site-footer) .hover\:text-stone-900:hover {
+  color: #ffffff;
+}
+html[data-chrome="dark"] :is(.site-header, .site-footer) .hover\:text-brand-700:hover {
+  color: #e58a3c;
+}
+
+/* Primary actions retint from brand green to atelier amber */
+html[data-chrome="dark"] .site-header .bg-brand-600 {
+  background-color: #e58a3c;
+  color: #1a0f06;
+}
+html[data-chrome="dark"] .site-header .hover\:bg-brand-700:hover {
+  background-color: #f0a05c;
+}
+html[data-chrome="dark"] .site-header .bg-stone-900 {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+html[data-chrome="dark"] .site-header .hover\:bg-stone-800:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Language switcher + mobile sheet */
+html[data-chrome="dark"] .site-header .bg-white\/70 {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+html[data-chrome="dark"] .site-header .text-emerald-700 {
+  color: #c9ced3;
+}
+html[data-chrome="dark"] .site-header .bg-emerald-600 {
+  background-color: #e58a3c;
+  color: #1a0f06;
+}
+html[data-chrome="dark"] .site-header .hover\:bg-emerald-100:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }

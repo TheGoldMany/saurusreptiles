@@ -8,262 +8,361 @@ export function pick(locale: Locale, b: Bi): string {
   return locale === "hu" ? b.hu : b.en;
 }
 
-/** Approximate HUF → EUR conversion used only for indicative pricing. */
+/** Indicative HUF → EUR conversion, display only. */
 export const EUR_RATE = 395;
 
+/** Workshop rate for hand-carving hardscape, HUF / hour. */
+export const HARDSCAPE_HOURLY = 8500;
+
 // ---------------------------------------------------------------------------
-// Enclosure size / tier
+// Tier / enclosure size
 // ---------------------------------------------------------------------------
 
 export type Tier = {
   id: string;
   name: Bi;
   tagline: Bi;
-  /** width × depth × height in cm */
+  /** width × depth × height, cm */
   dims: [number, number, number];
-  basePrice: number;
+  note?: Bi;
+  /** PVC core + cabinet carcass, HUF */
+  frameCost: number;
+  /** lighting, UVB, heating and control gear, HUF */
+  techCost: number;
+  /** hand-carving hours for the rockscape */
+  hardscapeHours: number;
   bioload: Bi;
   uvb: Bi;
   heating: Bi;
-  stacked?: Bi;
+  /** substrate bed depth, cm */
+  substrateDepth: number;
 };
 
 export const tiers: Tier[] = [
   {
-    id: "standard",
-    name: { hu: "Standard Desert / Agáma", en: "Standard Desert / Agamid" },
+    id: "solo",
+    name: { hu: "Solo Agamid / Sivatagi Standard", en: "Solo Agamid / Desert Standard" },
     tagline: {
-      hu: "Sivatagi és szárazságkedvelő fajoknak",
-      en: "For desert and arid-dwelling species",
+      hu: "Egyedi szakállas agámáknak és sivatagi fajoknak",
+      en: "For single bearded dragons and desert species",
     },
     dims: [120, 60, 60],
-    basePrice: 420000,
+    frameCost: 240000,
+    techCost: 95000,
+    hardscapeHours: 18,
     bioload: {
-      hu: "Közepes — agámák, tüskésfarkúak",
-      en: "Medium — agamas, uromastyx",
+      hu: "Közepes — 1 kifejlett agáma, szárazságtűrő CUC",
+      en: "Medium — 1 adult agamid, arid clean-up crew",
     },
-    uvb: { hu: "Arcadia ProT5 6% Desert", en: "Arcadia ProT5 6% Desert" },
+    uvb: { hu: "Arcadia ProT5 12% Desert, süllyesztve", en: "Arcadia ProT5 12% Desert, recessed" },
     heating: {
-      hu: "60W kerámia + digitális termosztát",
-      en: "60W ceramic + digital thermostat",
+      hu: "Halogén napozó + Deep Heat Projector, dimmelt termosztát",
+      en: "Halogen basking + Deep Heat Projector, dimming thermostat",
     },
+    substrateDepth: 15,
   },
   {
     id: "arboreal",
-    name: { hu: "Arboreal / Canopy", en: "Arboreal / Canopy" },
+    name: {
+      hu: "Arboreal Crown / Gekkó & Trópusi Torony",
+      en: "Arboreal Crown / Gecko & Tropical Tower",
+    },
     tagline: {
-      hu: "Fán lakó gyíkoknak és kaméleonoknak",
-      en: "For arboreal lizards and chameleons",
+      hu: "Magas, párás torony fán lakó fajoknak",
+      en: "A tall, humid tower for arboreal species",
     },
-    dims: [90, 45, 90],
-    basePrice: 460000,
+    dims: [90, 50, 100],
+    frameCost: 275000,
+    techCost: 110000,
+    hardscapeHours: 24,
     bioload: {
-      hu: "Magas — fán lakó fajok, páratűrő",
-      en: "High — arboreal, humidity-loving species",
+      hu: "Magas — koronaszint, élő növényzet, trópusi CUC",
+      en: "High — canopy level, live planting, tropical CUC",
     },
-    uvb: { hu: "Arcadia ShadeDweller ProT5 6%", en: "Arcadia ShadeDweller ProT5 6%" },
+    uvb: { hu: "Arcadia ShadeDweller ProT5 7%", en: "Arcadia ShadeDweller ProT5 7%" },
     heating: {
-      hu: "50W basking spot + dimmer termosztát",
-      en: "50W basking spot + dimming thermostat",
+      hu: "Alacsony wattos DHP + automata párásító",
+      en: "Low-wattage DHP + automated misting",
     },
+    substrateDepth: 12,
   },
   {
     id: "apex",
-    name: { hu: "Apex / Varánusz & Tegu fal", en: "Apex / Monitor & Tegu Wall" },
+    name: {
+      hu: "Apex Predator / Teju & Varány Bútorfal",
+      en: "Apex Predator / Tegu & Monitor Furniture Wall",
+    },
     tagline: {
-      hu: "Nagytestű fajoknak, stackelhető modulokkal",
-      en: "For large species, with stackable modules",
+      hu: "Teljes falat betöltő, moduláris bútorrendszer",
+      en: "A full-wall, modular furniture system",
     },
-    dims: [200, 80, 100],
-    basePrice: 980000,
+    dims: [200, 90, 180],
+    note: {
+      hu: "Alsó 200 cm Teju szekció + felső iker-agáma modulok",
+      en: "Lower 200 cm tegu section + upper twin agamid modules",
+    },
+    frameCost: 690000,
+    techCost: 260000,
+    hardscapeHours: 52,
     bioload: {
-      hu: "Kiemelkedő — varánuszok, teguk, nagytestűek",
-      en: "Exceptional — monitors, tegus, large species",
+      hu: "Kiemelkedő — nagytestű varánuszok, teju, mély ásózóna",
+      en: "Exceptional — large monitors, tegu, deep digging zone",
     },
-    uvb: { hu: "Arcadia D3+ 12% T5 dupla soros", en: "Arcadia D3+ 12% T5 dual array" },
+    uvb: { hu: "Arcadia D3+ 14% T5 iker soros", en: "Arcadia D3+ 14% T5 dual array" },
     heating: {
-      hu: "2× 100W Deep Heat Projector + halogén",
-      en: "2× 100W Deep Heat Projector + halogen",
+      hu: "Többzónás halogén tömb + DHP, zónánkénti szabályzás",
+      en: "Multi-zone halogen array + DHP, per-zone control",
     },
-    stacked: {
-      hu: "Stackelhető: +1 modul kérhető",
-      en: "Stackable: +1 module available",
-    },
+    substrateDepth: 25,
   },
 ];
 
 // ---------------------------------------------------------------------------
-// Exterior hardwood finish
+// Exterior hardwood veneer
 // ---------------------------------------------------------------------------
 
 export type Wood = {
   id: string;
   name: Bi;
   swatch: Bi;
-  addPrice: number;
-  /** colors used by the animated preview */
+  surcharge: number;
+  /** preview + 3D material colours */
   base: string;
   light: string;
   dark: string;
   grain: string;
+  roughness: number;
 };
 
 export const woods: Wood[] = [
   {
     id: "oak",
-    name: { hu: "Natúr fehér tölgy", en: "Natural White Oak" },
-    swatch: { hu: "Meleg bézs–arany erezet", en: "Warm beige-gold grain" },
-    addPrice: 0,
+    name: { hu: "Természetes Tölgy", en: "Natural Oak" },
+    swatch: { hu: "Meleg, aranyló tölgy erezet", en: "Warm golden oak grain" },
+    surcharge: 0,
     base: "#c69a5f",
     light: "#e6cd9a",
     dark: "#9a7238",
     grain: "#8a6530",
+    roughness: 0.62,
   },
   {
     id: "walnut",
-    name: { hu: "Füstölt dió", en: "Smoked Walnut" },
-    swatch: { hu: "Mély csokoládébarna", en: "Deep chocolate brown" },
-    addPrice: 120000,
+    name: { hu: "Füstölt Dió", en: "Smoked Walnut" },
+    swatch: { hu: "Mély csokoládébarna, füstölt", en: "Deep chocolate, smoked" },
+    surcharge: 120000,
     base: "#4b2f1e",
     light: "#7a5334",
     dark: "#2f1c11",
     grain: "#23140b",
+    roughness: 0.52,
   },
   {
     id: "ash",
-    name: { hu: "Rusztikus fekete kőris", en: "Rustic Black Ash" },
-    swatch: { hu: "Matt faszén szürke", en: "Matte charcoal" },
-    addPrice: 90000,
+    name: { hu: "Fekete Kőris", en: "Black Ash" },
+    swatch: { hu: "Faszénfekete, matt nyitott pórus", en: "Charcoal black, matte open pore" },
+    surcharge: 90000,
     base: "#35302b",
     light: "#4d463d",
     dark: "#201d19",
     grain: "#16130f",
+    roughness: 0.78,
   },
   {
     id: "birch",
-    name: { hu: "Minimál nordikus nyír", en: "Minimal Nordic Birch" },
-    swatch: { hu: "Világos, hűvös fatónus", en: "Pale, cool timber tone" },
-    addPrice: 60000,
+    name: { hu: "Natúr Nyír", en: "Nordic Birch" },
+    swatch: { hu: "Világos, minimál skandináv tónus", en: "Pale, minimal Nordic tone" },
+    surcharge: 55000,
     base: "#e4d5b7",
     light: "#f4ecd7",
     dark: "#c3ad86",
     grain: "#b39a6f",
+    roughness: 0.58,
   },
 ];
 
 // ---------------------------------------------------------------------------
-// 3D scape texture & palette
+// Hand-carved 3D rockscape
 // ---------------------------------------------------------------------------
 
-export type Palette = {
+export type Scape = {
   id: string;
   name: Bi;
   swatch: Bi;
-  addPrice: number;
+  /** multiplier on hand-carving hours */
+  laborFactor: number;
   bg: string;
   rockDark: string;
   rockMid: string;
   rockLight: string;
   accent: string;
-  /** optional live-moss accent colour */
   moss?: string;
+  substrate: string;
 };
 
-export const palettes: Palette[] = [
+export const scapes: Scape[] = [
   {
     id: "outback",
-    name: { hu: "Vörös Outback pala", en: "Red Outback Slate" },
-    swatch: { hu: "Ausztrál terrakotta, sienna, homokkő", en: "Australian terracotta, sienna, sandstone" },
-    addPrice: 0,
-    bg: "#5b1e0c",
+    name: { hu: "Outback Vörös Pala", en: "Outback Red Slate" },
+    swatch: {
+      hu: "Ausztrál sziéna, terrakotta, meleg homokkő",
+      en: "Australian sienna, terracotta, warm sandstone",
+    },
+    laborFactor: 1,
+    bg: "#4a1a0b",
     rockDark: "#7c2d12",
-    rockMid: "#b45309",
-    rockLight: "#e0955a",
-    accent: "#ea7317",
+    rockMid: "#9e472a",
+    rockLight: "#d98b58",
+    accent: "#e58a3c",
+    substrate: "#8a5a34",
   },
   {
     id: "canyon",
-    name: { hu: "Canyon gránit", en: "Canyon Granite" },
-    swatch: { hu: "Vulkáni bazalt, faszén pala, hideg szürke", en: "Volcanic basalt, charcoal slate, cold gray" },
-    addPrice: 80000,
-    bg: "#0f172a",
-    rockDark: "#1e293b",
-    rockMid: "#3c4a5e",
-    rockLight: "#7c8ba1",
-    accent: "#a9b6c7",
+    name: { hu: "Vulkáni Kanyon Gránit", en: "Volcanic Canyon Granite" },
+    swatch: {
+      hu: "Bazaltfekete, sötétszürke, ezüst drybrush",
+      en: "Basalt black, dark gray, silver drybrush",
+    },
+    laborFactor: 1.15,
+    bg: "#0d1117",
+    rockDark: "#1e252e",
+    rockMid: "#3c4653",
+    rockLight: "#7f8b99",
+    accent: "#aab6c4",
+    substrate: "#4a4f57",
   },
   {
     id: "mossy",
-    name: { hu: "Szubtrópusi mohás bazalt", en: "Subtropical Mossy Basalt" },
-    swatch: { hu: "Mély barna szikla, élő moha akcentek", en: "Deep brown rock, lush moss accents" },
-    addPrice: 140000,
-    bg: "#241609",
-    rockDark: "#3f2d20",
+    name: { hu: "Szubtrópusi Mohás Sziklafal", en: "Subtropical Mossy Rock Wall" },
+    swatch: {
+      hu: "Mélybarna szikla, élő zöld mohafoltok",
+      en: "Deep brown rock, live green moss",
+    },
+    laborFactor: 1.3,
+    bg: "#1d1408",
+    rockDark: "#3a2a1c",
     rockMid: "#5b4128",
     rockLight: "#836039",
     accent: "#6b8e23",
     moss: "#4d7c0f",
+    substrate: "#3d2e1d",
   },
 ];
 
 // ---------------------------------------------------------------------------
-// Lighting & ambiance
+// Lighting profile
 // ---------------------------------------------------------------------------
 
+export type LightingId = "day" | "golden" | "night";
+
 export type Lighting = {
-  id: "day" | "sunset" | "off";
+  id: LightingId;
   name: Bi;
   swatch: Bi;
-  addPrice: number;
+  surcharge: number;
+  /** key light colour + intensity driving the 3D rig and the CSS ambience */
+  key: string;
+  fill: string;
+  ambient: string;
+  keyIntensity: number;
+  ambientIntensity: number;
+  /** page-level glow used behind the canvas */
+  glow: string;
 };
 
 export const lightings: Lighting[] = [
   {
     id: "day",
-    name: { hu: "Nappali mód", en: "Daytime Mode" },
-    swatch: { hu: "Ropogós 6500K LED + meleg basking folt", en: "Crisp 6500K LED + warm basking spot" },
-    addPrice: 0,
+    name: { hu: "Nappali", en: "Daylight" },
+    swatch: {
+      hu: "Full Spectrum 6500K LED + napozó spot",
+      en: "Full spectrum 6500K LED + basking spot",
+    },
+    surcharge: 0,
+    key: "#fff4e2",
+    fill: "#7dd3fc",
+    ambient: "#9fb6c8",
+    keyIntensity: 3.1,
+    ambientIntensity: 0.85,
+    glow: "rgba(125,211,252,0.20)",
   },
   {
-    id: "sunset",
-    name: { hu: "Naplemente / aranyóra", en: "Sunset / Golden Hour" },
-    swatch: { hu: "Meleg borostyán folt + tompított fény", en: "Warm amber spot + dimmed diffuse light" },
-    addPrice: 45000,
+    id: "golden",
+    name: { hu: "Naplemente / Golden Hour", en: "Sunset / Golden Hour" },
+    swatch: {
+      hu: "3000K meleg borostyán napozófény",
+      en: "3000K warm amber basking light",
+    },
+    surcharge: 45000,
+    key: "#e58a3c",
+    fill: "#9e472a",
+    ambient: "#5c3a24",
+    keyIntensity: 2.6,
+    ambientIntensity: 0.45,
+    glow: "rgba(229,138,60,0.26)",
   },
   {
-    id: "off",
-    name: { hu: "Kikapcsolva / sziluett", en: "Off / Silhouette" },
-    swatch: { hu: "Éjszakai sziluett nézet", en: "Night silhouette view" },
-    addPrice: 0,
+    id: "night",
+    name: { hu: "Éjszakai Sziluett", en: "Nocturnal Silhouette" },
+    swatch: {
+      hu: "Kikapcsolt fűtés, derengő holdfény",
+      en: "Heating off, faint moonlight",
+    },
+    surcharge: 28000,
+    key: "#8ba3d9",
+    fill: "#1b2440",
+    ambient: "#131a2e",
+    keyIntensity: 0.75,
+    ambientIntensity: 0.22,
+    glow: "rgba(60,80,150,0.22)",
   },
 ];
 
 // ---------------------------------------------------------------------------
-// Selection + derived spec
+// Selection, pricing engine and derived spec
 // ---------------------------------------------------------------------------
 
 export type Selection = {
   tierId: string;
   woodId: string;
-  paletteId: string;
-  lightingId: Lighting["id"];
+  scapeId: string;
+  lightingId: LightingId;
 };
 
 export const defaultSelection: Selection = {
-  tierId: "arboreal",
+  tierId: "solo",
   woodId: "oak",
-  paletteId: "outback",
+  scapeId: "outback",
   lightingId: "day",
+};
+
+export type BomLine = {
+  key: "frame" | "hardscape" | "tech";
+  amount: number;
+  /** e.g. "18 × 8 500 Ft" for the labour line */
+  detail?: string;
 };
 
 export function resolve(sel: Selection) {
   const tier = tiers.find((t) => t.id === sel.tierId) ?? tiers[0];
   const wood = woods.find((w) => w.id === sel.woodId) ?? woods[0];
-  const palette = palettes.find((p) => p.id === sel.paletteId) ?? palettes[0];
+  const scape = scapes.find((s) => s.id === sel.scapeId) ?? scapes[0];
   const lighting = lightings.find((l) => l.id === sel.lightingId) ?? lightings[0];
-  const price =
-    tier.basePrice + wood.addPrice + palette.addPrice + lighting.addPrice;
+
+  const frame = tier.frameCost + wood.surcharge;
+  const hours = Math.round(tier.hardscapeHours * scape.laborFactor);
+  const hardscape = hours * HARDSCAPE_HOURLY;
+  const tech = tier.techCost + lighting.surcharge;
+
+  const bom: BomLine[] = [
+    { key: "frame", amount: frame },
+    { key: "hardscape", amount: hardscape, detail: `${hours} h × ${HARDSCAPE_HOURLY}` },
+    { key: "tech", amount: tech },
+  ];
+
+  const price = frame + hardscape + tech;
   const [w, d, h] = tier.dims;
   const volumeL = Math.round((w * d * h) / 1000);
-  return { tier, wood, palette, lighting, price, volumeL };
+
+  return { tier, wood, scape, lighting, price, bom, hours, volumeL };
 }

@@ -24,7 +24,7 @@ export default async function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/80 backdrop-blur-md">
+    <header className="site-header sticky top-0 z-40 border-b border-stone-200/80 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4">
         <Link href="/" className="shrink-0">
           <Logo />

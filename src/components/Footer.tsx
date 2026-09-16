@@ -5,7 +5,7 @@ import { LogoMark } from "./Logo";
 export default async function Footer() {
   const { dict } = await getDict();
   return (
-    <footer className="mt-24 border-t border-stone-200 bg-white">
+    <footer className="site-footer mt-24 border-t border-stone-200 bg-white">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3">
         <div>
           <div className="flex items-center gap-2">
