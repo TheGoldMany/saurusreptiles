@@ -16,6 +16,7 @@ export default async function Header() {
   const cartCount = cart.reduce((sum, i) => sum + i.quantity, 0);
 
   const navLinks = [
+    { href: "/bespoke", label: dict.nav.bespoke },
     { href: "/animals", label: dict.nav.animals },
     { href: "/shop", label: dict.nav.shop },
     { href: "/care", label: dict.nav.care },

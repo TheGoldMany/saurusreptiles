@@ -50,6 +50,13 @@ export default async function HomePage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
+              href="/bespoke"
+              className="inline-flex items-center gap-2 rounded-lg bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-stone-800"
+            >
+              <Sparkles className="h-4 w-4" strokeWidth={2} />
+              {dict.nav.bespoke}
+            </Link>
+            <Link
               href="/shop"
               className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
             >
