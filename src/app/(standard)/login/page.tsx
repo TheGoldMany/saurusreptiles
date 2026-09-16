@@ -15,10 +15,10 @@ export default async function LoginPage({
 
   return (
     <div className="mx-auto max-w-md">
-      <h1 className="text-center text-3xl font-bold tracking-tight text-stone-900">
+      <h1 className="text-center text-3xl font-bold tracking-tight text-ink">
         {dict.auth.loginTitle}
       </h1>
-      <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-8 shadow-sm">
+      <div className="mt-8 rounded-3xl border border-white/10 bg-surface p-8 shadow-sm">
         <LoginForm redirectTo={redirectTo ?? "/"} />
       </div>
     </div>

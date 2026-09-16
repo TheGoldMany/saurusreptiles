@@ -9,10 +9,10 @@ export default async function PacksPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
+      <h1 className="text-3xl font-bold tracking-tight text-ink">
         {dict.packs.title}
       </h1>
-      <p className="mt-2 max-w-2xl text-stone-500">{dict.packs.subtitle}</p>
+      <p className="mt-2 max-w-2xl text-ink-3">{dict.packs.subtitle}</p>
       <div className="mt-8">
         <PackOpener
           packs={PACKS}

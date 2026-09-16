@@ -15,12 +15,12 @@ export default async function AdminUsersPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+      <h1 className="text-2xl font-bold tracking-tight text-ink">
         {dict.admin.users}
       </h1>
-      <div className="mt-6 overflow-x-auto rounded-xl border border-stone-200 bg-white">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-white/10 bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b border-stone-200 bg-stone-50 text-left text-xs font-semibold uppercase tracking-wider text-stone-500">
+          <thead className="border-b border-white/10 bg-white/[0.03] text-left text-xs font-semibold uppercase tracking-wider text-ink-3">
             <tr>
               <th className="px-4 py-3">{dict.common.name}</th>
               <th className="px-4 py-3">Email</th>
@@ -32,27 +32,27 @@ export default async function AdminUsersPage() {
           </thead>
           <tbody>
             {rows.map((u) => (
-              <tr key={u.id} className="border-t border-stone-100">
-                <td className="px-4 py-3 font-medium text-stone-800">
+              <tr key={u.id} className="border-t border-white/[0.06]">
+                <td className="px-4 py-3 font-medium text-ink">
                   {u.name}
                 </td>
-                <td className="px-4 py-3 text-stone-500">{u.email}</td>
+                <td className="px-4 py-3 text-ink-3">{u.email}</td>
                 <td className="px-4 py-3">
                   {u.role === "admin" ? (
-                    <span className="rounded-full bg-brand-100 px-2 py-0.5 text-xs font-semibold text-brand-700">
+                    <span className="rounded-full bg-amber-glow/15 px-2 py-0.5 text-xs font-semibold text-amber-glow">
                       {dict.profile.admin}
                     </span>
                   ) : (
-                    <span className="text-stone-500">{dict.profile.user}</span>
+                    <span className="text-ink-3">{dict.profile.user}</span>
                   )}
                 </td>
-                <td className="px-4 py-3 text-right font-semibold text-amber-700">
+                <td className="px-4 py-3 text-right font-semibold text-amber-glow">
                   <span className="inline-flex items-center gap-1">
                     <Coins className="h-3.5 w-3.5" strokeWidth={2} />
                     {formatCoins(u.coins, locale)}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-stone-400">
+                <td className="px-4 py-3 text-ink-4">
                   {formatDate(u.createdAt, locale)}
                 </td>
                 <td className="px-4 py-3 text-right">

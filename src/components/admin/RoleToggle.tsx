@@ -22,7 +22,7 @@ export default function RoleToggle({
     <button
       disabled={pending}
       onClick={() => startTransition(() => setUserRole(userId, next))}
-      className="rounded-lg border border-stone-200 px-2 py-1 text-xs font-semibold text-stone-600 hover:bg-stone-50 disabled:opacity-50"
+      className="rounded-lg border border-white/10 px-2 py-1 text-xs font-semibold text-ink-2 hover:bg-white/[0.03] disabled:opacity-50"
     >
       {next === "admin" ? dict.admin.user.makeAdmin : dict.admin.user.makeUser}
     </button>

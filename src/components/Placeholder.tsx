@@ -10,7 +10,7 @@ export function ImagePlaceholder({
 }) {
   return (
     <div
-      className={`flex items-center justify-center bg-stone-100 text-stone-300 ${className}`}
+      className={`flex items-center justify-center bg-white/[0.06] text-ink-4 ${className}`}
     >
       <Leaf className={iconClassName} strokeWidth={1.5} />
     </div>

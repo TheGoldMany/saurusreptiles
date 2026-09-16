@@ -44,25 +44,25 @@ export default async function CheckoutPage() {
     <div>
       <Link
         href="/cart"
-        className="text-sm font-medium text-stone-500 transition-colors hover:text-brand-700"
+        className="text-sm font-medium text-ink-3 transition-colors hover:text-amber-glow"
       >
         ← {dict.cart.title}
       </Link>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-stone-900">
+      <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink">
         {dict.checkout.title}
       </h1>
       <div className="mt-8 grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <CheckoutForm defaultName={user.name} defaultEmail={user.email} />
         </div>
-        <div className="h-fit rounded-2xl border border-stone-200 bg-white p-6">
-          <h2 className="mb-4 font-semibold text-stone-900">
+        <div className="h-fit rounded-2xl border border-white/10 bg-surface p-6">
+          <h2 className="mb-4 font-semibold text-ink">
             {dict.orders.items}
           </h2>
           <ul className="flex flex-col gap-2 text-sm">
             {items.map(({ product, quantity }) => (
               <li key={product.id} className="flex justify-between gap-2">
-                <span className="text-stone-600">
+                <span className="text-ink-2">
                   {quantity}× {loc(locale, product.nameHu, product.nameEn)}
                 </span>
                 <span className="font-semibold">
@@ -71,8 +71,8 @@ export default async function CheckoutPage() {
               </li>
             ))}
           </ul>
-          <hr className="my-4 border-stone-200" />
-          <div className="flex justify-between text-lg font-semibold text-stone-900">
+          <hr className="my-4 border-white/10" />
+          <div className="flex justify-between text-lg font-semibold text-ink">
             <span>{dict.common.total}</span>
             <span>{formatHuf(total, locale)}</span>
           </div>

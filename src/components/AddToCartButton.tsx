@@ -32,8 +32,8 @@ export default function AddToCartButton({
         aria-label={dict.shop.addToCart}
         className={`flex items-center justify-center rounded-lg p-2 transition-colors disabled:opacity-60 ${
           added
-            ? "bg-brand-100 text-brand-700"
-            : "bg-stone-100 text-stone-700 hover:bg-brand-600 hover:text-white"
+            ? "bg-amber-glow/15 text-amber-glow"
+            : "bg-white/[0.06] text-ink-2 hover:bg-amber-glow hover:text-void"
         }`}
       >
         {added ? (
@@ -49,8 +49,8 @@ export default function AddToCartButton({
     <button
       onClick={handleClick}
       disabled={pending}
-      className={`flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold text-white transition-colors disabled:opacity-60 ${
-        added ? "bg-brand-500" : "bg-brand-600 hover:bg-brand-700"
+      className={`flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold text-void transition-colors disabled:opacity-60 ${
+        added ? "bg-amber-glow" : "bg-amber-glow hover:bg-amber-soft"
       }`}
     >
       {added ? (

@@ -57,25 +57,25 @@ export default async function ShopPage({
 
   return (
     <div>
-      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
+      <h1 className="text-3xl font-bold tracking-tight text-ink">
         {dict.shop.title}
       </h1>
 
       <form className="mt-6 flex flex-wrap items-center gap-2" action="/shop">
         <div className="relative w-full max-w-xs">
           <Search
-            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400"
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-4"
             strokeWidth={2}
           />
           <input
             name="q"
             defaultValue={q ?? ""}
             placeholder={dict.common.search + "..."}
-            className="w-full rounded-lg border border-stone-200 bg-white py-2.5 pl-9 pr-4 text-sm outline-none transition-colors focus:border-brand-500"
+            className="w-full rounded-lg border border-white/10 bg-surface py-2.5 pl-9 pr-4 text-sm outline-none transition-colors focus:border-amber-glow/60"
           />
         </div>
         {category && <input type="hidden" name="category" value={category} />}
-        <button className="rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700">
+        <button className="rounded-lg bg-amber-glow px-4 py-2.5 text-sm font-semibold text-void transition-colors hover:bg-amber-soft">
           {dict.common.search}
         </button>
       </form>
@@ -85,8 +85,8 @@ export default async function ShopPage({
           href="/shop"
           className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
             !category
-              ? "border-brand-600 bg-brand-600 text-white"
-              : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
+              ? "border-amber-glow bg-amber-glow text-void"
+              : "border-white/10 bg-surface text-ink-2 hover:border-white/15"
           }`}
         >
           {dict.common.all}
@@ -97,8 +97,8 @@ export default async function ShopPage({
             href={`/shop?category=${c}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
             className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
               category === c
-                ? "border-brand-600 bg-brand-600 text-white"
-                : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
+                ? "border-amber-glow bg-amber-glow text-void"
+                : "border-white/10 bg-surface text-ink-2 hover:border-white/15"
             }`}
           >
             {CATEGORY_LABELS[c][locale]}
@@ -107,7 +107,7 @@ export default async function ShopPage({
       </div>
 
       {rows.length === 0 ? (
-        <p className="mt-16 text-center text-stone-500">
+        <p className="mt-16 text-center text-ink-3">
           {dict.shop.noProducts}
         </p>
       ) : (

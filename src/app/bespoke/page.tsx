@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getDict } from "@/lib/i18n";
 import { getCurrentUser } from "@/lib/auth";
 import SmoothScroll from "@/components/cinematic/SmoothScroll";
-import ChromeTheme from "@/components/cinematic/ChromeTheme";
 import HeroCinematic from "@/components/cinematic/HeroCinematic";
 import CraftsmanshipShowcase from "@/components/cinematic/CraftsmanshipShowcase";
 import VivariumStudio from "@/components/configurator/VivariumStudio";
@@ -21,8 +20,7 @@ export default async function BespokePage() {
 
   return (
     <SmoothScroll>
-      <ChromeTheme />
-      <div className="film-grain relative bg-[#08090a] text-[#f3f4f6]">
+      <div className="relative bg-void text-ink">
         {/* 1 — Cinematic hero */}
         <HeroCinematic t={t} />
 

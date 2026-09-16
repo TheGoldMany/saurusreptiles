@@ -35,37 +35,37 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col gap-20">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-2xl border border-stone-200 bg-white px-8 py-16 sm:px-12 sm:py-20">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_120%_at_100%_0%,#ecfdf5_0%,transparent_60%)]" />
+      <section className="relative overflow-hidden rounded-2xl border border-white/10 bg-surface px-8 py-16 sm:px-12 sm:py-20">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_120%_at_100%_0%,rgba(229,138,60,0.18)_0%,transparent_62%)]" />
         <div className="relative max-w-2xl">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-glow/30 bg-amber-glow/10 px-3 py-1 text-xs font-medium text-amber-glow">
             <Sparkles className="h-3.5 w-3.5" strokeWidth={2} />
             {dict.home.coinsTeaser}
           </span>
-          <h1 className="mt-5 text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
+          <h1 className="mt-5 text-4xl font-bold tracking-tight text-ink sm:text-5xl">
             {dict.home.heroTitle}
           </h1>
-          <p className="mt-4 max-w-xl text-lg leading-relaxed text-stone-500">
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink-3">
             {dict.home.heroSubtitle}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/bespoke"
-              className="inline-flex items-center gap-2 rounded-lg bg-stone-900 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-stone-800"
+              className="inline-flex items-center gap-2 rounded-lg bg-amber-glow px-5 py-3 text-sm font-semibold text-void transition-colors hover:bg-amber-soft"
             >
               <Sparkles className="h-4 w-4" strokeWidth={2} />
               {dict.nav.bespoke}
             </Link>
             <Link
               href="/shop"
-              className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-white/[0.08]"
             >
               <ShoppingBag className="h-4 w-4" strokeWidth={2} />
               {dict.home.browseShop}
             </Link>
             <Link
               href="/animals"
-              className="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-stone-700 transition-colors hover:bg-stone-50"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-white/[0.08]"
             >
               <PawPrint className="h-4 w-4" strokeWidth={2} />
               {dict.home.meetAnimals}
@@ -75,21 +75,21 @@ export default async function HomePage() {
       </section>
 
       {/* SaurusCoin teaser */}
-      <section className="flex flex-col items-start gap-5 rounded-2xl border border-amber-200 bg-amber-50 p-8 sm:flex-row sm:items-center">
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+      <section className="flex flex-col items-start gap-5 rounded-2xl border border-amber-glow/30 bg-amber-glow/10 p-8 sm:flex-row sm:items-center">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-glow/15 text-amber-glow">
           <Coins className="h-6 w-6" strokeWidth={2} />
         </span>
         <div className="flex-1">
-          <h2 className="text-lg font-semibold text-amber-900">
+          <h2 className="text-lg font-semibold text-ink">
             {dict.home.coinsTeaser}
           </h2>
-          <p className="mt-1 text-sm text-amber-800/80">
+          <p className="mt-1 text-sm text-amber-glow/80">
             {dict.home.coinsTeaserText}
           </p>
         </div>
         <Link
           href="/packs"
-          className="inline-flex items-center gap-2 rounded-lg bg-amber-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-amber-700"
+          className="inline-flex items-center gap-2 rounded-lg bg-amber-glow px-5 py-2.5 text-sm font-semibold text-void transition-colors hover:bg-amber-soft"
         >
           {dict.home.openPacks}
           <ArrowRight className="h-4 w-4" strokeWidth={2} />
@@ -123,7 +123,7 @@ export default async function HomePage() {
               <Link
                 key={a.id}
                 href={`/animals/${a.id}`}
-                className="group overflow-hidden rounded-xl border border-stone-200 bg-white transition-all hover:border-stone-300 hover:shadow-sm"
+                className="group overflow-hidden rounded-xl border border-white/10 bg-surface transition-all hover:border-white/15 hover:shadow-sm"
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   {a.imageUrl ? (
@@ -138,10 +138,10 @@ export default async function HomePage() {
                   )}
                 </div>
                 <div className="p-4">
-                  <h3 className="font-medium text-stone-800 transition-colors group-hover:text-brand-700">
+                  <h3 className="font-medium text-ink transition-colors group-hover:text-amber-glow">
                     {loc(locale, a.nameHu, a.nameEn)}
                   </h3>
-                  <p className="text-sm italic text-stone-400">{a.latinName}</p>
+                  <p className="text-sm italic text-ink-4">{a.latinName}</p>
                 </div>
               </Link>
             ))}
@@ -161,15 +161,15 @@ export default async function HomePage() {
               <Link
                 key={a.id}
                 href={`/care/${a.slug}`}
-                className="group flex flex-col rounded-xl border border-stone-200 bg-white p-5 transition-all hover:border-stone-300 hover:shadow-sm"
+                className="group flex flex-col rounded-xl border border-white/10 bg-surface p-5 transition-all hover:border-white/15 hover:shadow-sm"
               >
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-600">
+                <span className="text-xs font-semibold uppercase tracking-wider text-amber-glow">
                   {dict.care.categories[a.category] ?? a.category}
                 </span>
-                <h3 className="mt-2 font-medium text-stone-800 transition-colors group-hover:text-brand-700">
+                <h3 className="mt-2 font-medium text-ink transition-colors group-hover:text-amber-glow">
                   {loc(locale, a.titleHu, a.titleEn)}
                 </h3>
-                <p className="mt-2 line-clamp-3 text-sm text-stone-500">
+                <p className="mt-2 line-clamp-3 text-sm text-ink-3">
                   {loc(locale, a.excerptHu, a.excerptEn)}
                 </p>
               </Link>
@@ -195,12 +195,12 @@ function Section({
   return (
     <section>
       <div className="mb-5 flex items-center justify-between">
-        <h2 className="text-xl font-semibold tracking-tight text-stone-900">
+        <h2 className="text-xl font-semibold tracking-tight text-ink">
           {title}
         </h2>
         <Link
           href={href}
-          className="inline-flex items-center gap-1 text-sm font-medium text-brand-700 transition-colors hover:text-brand-800"
+          className="inline-flex items-center gap-1 text-sm font-medium text-amber-glow transition-colors hover:text-amber-glow"
         >
           {moreLabel}
           <ArrowRight className="h-4 w-4" strokeWidth={2} />

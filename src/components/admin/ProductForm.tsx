@@ -6,7 +6,7 @@ import type { Product } from "@/lib/db/schema";
 import { useI18n } from "@/lib/i18n/client";
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-sm outline-none focus:border-emerald-500";
+  "w-full rounded-xl border border-white/10 bg-surface px-3 py-2 text-sm outline-none focus:border-emerald-500";
 
 export default function ProductForm({ product }: { product?: Product }) {
   const { dict } = useI18n();
@@ -113,7 +113,7 @@ export default function ProductForm({ product }: { product?: Product }) {
         {t.active}
       </label>
       {state?.error && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
+        <p className="rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-400">
           {dict.auth.invalidInput}
         </p>
       )}

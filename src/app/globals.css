@@ -4,25 +4,24 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), var(--font-geist-sans), ui-sans-serif,
     system-ui, sans-serif;
-  --color-brand-50: #ecfdf5;
-  --color-brand-100: #d1fae5;
-  --color-brand-200: #a7f3d0;
-  --color-brand-500: #10b981;
-  --color-brand-600: #059669;
-  --color-brand-700: #047857;
-  --color-brand-800: #065f46;
-  --color-brand-900: #064e3b;
+  /* ---- The Primordial Luxury palette ---- */
+  /* Surfaces, darkest first */
+  --color-void: #08090a; /* deepest charcoal obsidian — page ground */
+  --color-surface: #111315; /* satin brushed dark slate — cards, panels */
+  --color-surface-2: #171a1e; /* raised surface — inputs, hovers */
 
-  /* ---- The Primordial Luxury palette (cinematic surfaces) ---- */
-  --color-void: #08090a; /* deepest charcoal obsidian */
-  --color-surface: #111315; /* satin brushed dark slate */
-  --color-surface-2: #16191c;
-  --color-amber-glow: #e58a3c; /* 4500K desert basking glow */
+  /* Ink scale, brightest first. ink = headings, ink-4 = faintest meta. */
+  --color-ink: #f3f4f6; /* pristine off-white */
+  --color-ink-2: #c9ced3;
+  --color-ink-3: #889096; /* weathered stone gray */
+  --color-ink-4: #5f676d;
+
+  /* Accents */
+  --color-amber-glow: #e58a3c; /* 4500K desert basking glow — primary */
+  --color-amber-soft: #f0a05c; /* hover/raised amber */
   --color-cyan-glow: #7dd3fc; /* 6500K daylight LED spectrum */
   --color-clay: #9e472a; /* red Australian outback terracotta */
   --color-indigo-night: #1b2440; /* nocturnal moonlit */
-  --color-primary-text: #f3f4f6; /* pristine off-white */
-  --color-muted-text: #889096; /* weathered stone gray */
 }
 
 html {
@@ -30,8 +29,8 @@ html {
 }
 
 body {
-  background: #fafaf9; /* stone-50 */
-  color: #1c1917; /* stone-900 */
+  background: #08090a; /* void */
+  color: #f3f4f6; /* ink */
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -39,19 +38,19 @@ body {
 
 /* Subtle, consistent focus ring for interactive elements */
 *:focus-visible {
-  outline: 2px solid #059669;
+  outline: 2px solid #e58a3c;
   outline-offset: 2px;
 }
 
 ::selection {
-  background: #a7f3d0;
-  color: #064e3b;
+  background: rgba(229, 138, 60, 0.3);
+  color: #f3f4f6;
 }
 
 /* Thin, unobtrusive scrollbars */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #d6d3d1 transparent;
+  scrollbar-color: #2b3036 transparent;
 }
 
 /* Motion primitives used by the Bespoke configurator */
@@ -146,7 +145,7 @@ html.lenis body {
   inset: -50%;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.16;
+  opacity: 0.09;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   will-change: transform;
   animation: grainDrift 0.7s steps(3) infinite;
@@ -185,78 +184,4 @@ html.lenis body {
   .film-grain::after {
     animation: none;
   }
-}
-
-/* ---------------------------------------------------------------------- */
-/* Dark site chrome                                                        */
-/* Set by <ChromeTheme /> while the cinematic route is mounted, so the      */
-/* shared header/footer invert instead of sitting on the dark page as a     */
-/* bright white bar. Every other route is untouched.                        */
-/* ---------------------------------------------------------------------- */
-
-html[data-chrome="dark"] .site-header {
-  background-color: rgba(8, 9, 10, 0.72);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-html[data-chrome="dark"] .site-footer {
-  background-color: #08090a;
-  border-color: rgba(255, 255, 255, 0.08);
-  margin-top: 0;
-}
-
-/* Text tones */
-html[data-chrome="dark"] :is(.site-header, .site-footer) :is(.text-stone-900) {
-  color: #f3f4f6;
-}
-html[data-chrome="dark"] :is(.site-header, .site-footer) :is(.text-stone-600, .text-stone-700) {
-  color: #c9ced3;
-}
-html[data-chrome="dark"] :is(.site-header, .site-footer) :is(.text-stone-400, .text-stone-500) {
-  color: #889096;
-}
-html[data-chrome="dark"] :is(.site-header, .site-footer) .text-brand-600 {
-  color: #e58a3c;
-}
-
-/* Hover surfaces must not flash light */
-html[data-chrome="dark"] :is(.site-header, .site-footer) .hover\:bg-stone-100:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-}
-html[data-chrome="dark"] :is(.site-header, .site-footer) .hover\:text-stone-900:hover {
-  color: #ffffff;
-}
-html[data-chrome="dark"] :is(.site-header, .site-footer) .hover\:text-brand-700:hover {
-  color: #e58a3c;
-}
-
-/* Primary actions retint from brand green to atelier amber */
-html[data-chrome="dark"] .site-header .bg-brand-600 {
-  background-color: #e58a3c;
-  color: #1a0f06;
-}
-html[data-chrome="dark"] .site-header .hover\:bg-brand-700:hover {
-  background-color: #f0a05c;
-}
-html[data-chrome="dark"] .site-header .bg-stone-900 {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-html[data-chrome="dark"] .site-header .hover\:bg-stone-800:hover {
-  background-color: rgba(255, 255, 255, 0.16);
-}
-
-/* Language switcher + mobile sheet */
-html[data-chrome="dark"] .site-header .bg-white\/70 {
-  background-color: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.14);
-}
-html[data-chrome="dark"] .site-header .text-emerald-700 {
-  color: #c9ced3;
-}
-html[data-chrome="dark"] .site-header .bg-emerald-600 {
-  background-color: #e58a3c;
-  color: #1a0f06;
-}
-html[data-chrome="dark"] .site-header .hover\:bg-emerald-100:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }

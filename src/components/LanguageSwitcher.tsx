@@ -16,7 +16,7 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <div className="flex items-center gap-1 rounded-full border border-emerald-200 bg-white/70 px-1 py-0.5 text-xs font-semibold">
+    <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-1 py-0.5 text-xs font-semibold">
       {(["hu", "en"] as const).map((l) => (
         <button
           key={l}
@@ -24,8 +24,8 @@ export default function LanguageSwitcher() {
           disabled={pending}
           className={`rounded-full px-2 py-1 uppercase transition ${
             locale === l
-              ? "bg-emerald-600 text-white"
-              : "text-emerald-700 hover:bg-emerald-100"
+              ? "bg-amber-glow text-void"
+              : "text-ink-3 hover:bg-white/[0.08] hover:text-ink"
           }`}
         >
           {l}

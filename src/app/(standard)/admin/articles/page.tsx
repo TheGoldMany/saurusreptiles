@@ -20,21 +20,21 @@ export default async function AdminArticlesPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+        <h1 className="text-2xl font-bold tracking-tight text-ink">
           {dict.admin.articles}
         </h1>
         <Link
           href="/admin/articles/new"
-          className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-amber-glow px-4 py-2.5 text-sm font-semibold text-void transition-colors hover:bg-amber-soft"
         >
           <Plus className="h-4 w-4" strokeWidth={2.5} />
           {dict.admin.article.new}
         </Link>
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-xl border border-stone-200 bg-white">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-white/10 bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b border-stone-200 bg-stone-50 text-left text-xs font-semibold uppercase tracking-wider text-stone-500">
+          <thead className="border-b border-white/10 bg-white/[0.03] text-left text-xs font-semibold uppercase tracking-wider text-ink-3">
             <tr>
               <th className="px-4 py-3">{dict.common.name}</th>
               <th className="px-4 py-3">{dict.common.category}</th>
@@ -45,24 +45,24 @@ export default async function AdminArticlesPage() {
           </thead>
           <tbody>
             {rows.map((a) => (
-              <tr key={a.id} className="border-t border-stone-100">
-                <td className="px-4 py-3 font-medium text-stone-800">
+              <tr key={a.id} className="border-t border-white/[0.06]">
+                <td className="px-4 py-3 font-medium text-ink">
                   {loc(locale, a.titleHu, a.titleEn)}
                 </td>
-                <td className="px-4 py-3 text-stone-500">
+                <td className="px-4 py-3 text-ink-3">
                   {dict.care.categories[a.category] ?? a.category}
                 </td>
                 <td className="px-4 py-3">
                   <BoolBadge value={a.published} />
                 </td>
-                <td className="px-4 py-3 text-stone-400">
+                <td className="px-4 py-3 text-ink-4">
                   {formatDate(a.createdAt, locale)}
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-1">
                     <Link
                       href={`/admin/articles/${a.id}`}
-                      className="rounded-lg px-2 py-1 text-xs font-semibold text-brand-700 hover:bg-brand-50"
+                      className="rounded-lg px-2 py-1 text-xs font-semibold text-amber-glow hover:bg-amber-glow/10"
                     >
                       {dict.common.edit}
                     </Link>

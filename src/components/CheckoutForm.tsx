@@ -6,7 +6,7 @@ import { placeOrder, type CheckoutState } from "@/actions/checkout";
 import { useI18n } from "@/lib/i18n/client";
 
 const inputCls =
-  "w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100";
+  "w-full rounded-xl border border-white/10 bg-surface px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400/20";
 
 export default function CheckoutForm({
   defaultName,
@@ -31,11 +31,11 @@ export default function CheckoutForm({
   return (
     <form action={action} className="flex flex-col gap-6">
       <section>
-        <h2 className="mb-3 text-lg font-bold text-emerald-900">
+        <h2 className="mb-3 text-lg font-bold text-ink">
           {dict.checkout.contact}
         </h2>
         <div className="grid gap-3 sm:grid-cols-2">
-          <label className="flex flex-col gap-1 text-sm font-medium text-stone-700">
+          <label className="flex flex-col gap-1 text-sm font-medium text-ink-2">
             {dict.auth.name}
             <input
               name="name"
@@ -44,7 +44,7 @@ export default function CheckoutForm({
               className={inputCls}
             />
           </label>
-          <label className="flex flex-col gap-1 text-sm font-medium text-stone-700">
+          <label className="flex flex-col gap-1 text-sm font-medium text-ink-2">
             {dict.auth.email}
             <input
               name="email"
@@ -54,7 +54,7 @@ export default function CheckoutForm({
               className={inputCls}
             />
           </label>
-          <label className="flex flex-col gap-1 text-sm font-medium text-stone-700">
+          <label className="flex flex-col gap-1 text-sm font-medium text-ink-2">
             {dict.checkout.phone}
             <input name="phone" className={inputCls} />
           </label>
@@ -62,19 +62,19 @@ export default function CheckoutForm({
       </section>
 
       <section>
-        <h2 className="mb-3 text-lg font-bold text-emerald-900">
+        <h2 className="mb-3 text-lg font-bold text-ink">
           {dict.checkout.shipping}
         </h2>
         <div className="grid gap-3 sm:grid-cols-3">
-          <label className="flex flex-col gap-1 text-sm font-medium text-stone-700">
+          <label className="flex flex-col gap-1 text-sm font-medium text-ink-2">
             {dict.checkout.zip}
             <input name="zip" required className={inputCls} />
           </label>
-          <label className="flex flex-col gap-1 text-sm font-medium text-stone-700 sm:col-span-2">
+          <label className="flex flex-col gap-1 text-sm font-medium text-ink-2 sm:col-span-2">
             {dict.checkout.city}
             <input name="city" required className={inputCls} />
           </label>
-          <label className="flex flex-col gap-1 text-sm font-medium text-stone-700 sm:col-span-3">
+          <label className="flex flex-col gap-1 text-sm font-medium text-ink-2 sm:col-span-3">
             {dict.checkout.address}
             <input name="address" required className={inputCls} />
           </label>
@@ -82,32 +82,32 @@ export default function CheckoutForm({
       </section>
 
       <section>
-        <h2 className="mb-3 text-lg font-bold text-emerald-900">
+        <h2 className="mb-3 text-lg font-bold text-ink">
           {dict.checkout.payment}
         </h2>
         <div className="flex flex-col gap-2">
-          <label className="flex items-center gap-3 rounded-lg border border-stone-200 px-4 py-3 text-sm font-medium transition-colors has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50">
+          <label className="flex items-center gap-3 rounded-lg border border-white/10 px-4 py-3 text-sm font-medium transition-colors has-[:checked]:border-amber-glow/60 has-[:checked]:bg-amber-glow/10">
             <input
               type="radio"
               name="paymentMethod"
               value="transfer"
               defaultChecked
-              className="accent-brand-600"
+              className="accent-amber-glow"
             />
-            <Banknote className="h-5 w-5 text-stone-500" strokeWidth={1.75} />
+            <Banknote className="h-5 w-5 text-ink-3" strokeWidth={1.75} />
             {dict.checkout.transfer}
           </label>
-          <label className="flex items-center gap-3 rounded-lg border border-stone-200 px-4 py-3 text-sm font-medium transition-colors has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50">
+          <label className="flex items-center gap-3 rounded-lg border border-white/10 px-4 py-3 text-sm font-medium transition-colors has-[:checked]:border-amber-glow/60 has-[:checked]:bg-amber-glow/10">
             <input
               type="radio"
               name="paymentMethod"
               value="cod"
-              className="accent-brand-600"
+              className="accent-amber-glow"
             />
-            <Truck className="h-5 w-5 text-stone-500" strokeWidth={1.75} />
+            <Truck className="h-5 w-5 text-ink-3" strokeWidth={1.75} />
             {dict.checkout.cod}
           </label>
-          <label className="flex items-center gap-3 rounded-lg border border-stone-200 px-4 py-3 text-sm font-medium text-stone-400">
+          <label className="flex items-center gap-3 rounded-lg border border-white/10 px-4 py-3 text-sm font-medium text-ink-4">
             <input type="radio" name="paymentMethod" value="card" disabled />
             <CreditCard className="h-5 w-5" strokeWidth={1.75} />
             {dict.checkout.card}
@@ -116,7 +116,7 @@ export default function CheckoutForm({
       </section>
 
       {state?.error && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
+        <p className="rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-400">
           {errorMap[state.error] ?? dict.common.error}
         </p>
       )}

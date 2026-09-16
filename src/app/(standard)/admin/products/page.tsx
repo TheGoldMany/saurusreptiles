@@ -20,21 +20,21 @@ export default async function AdminProductsPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+        <h1 className="text-2xl font-bold tracking-tight text-ink">
           {dict.admin.products}
         </h1>
         <Link
           href="/admin/products/new"
-          className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-amber-glow px-4 py-2.5 text-sm font-semibold text-void transition-colors hover:bg-amber-soft"
         >
           <Plus className="h-4 w-4" strokeWidth={2.5} />
           {dict.admin.product.new}
         </Link>
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-xl border border-stone-200 bg-white">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-white/10 bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b border-stone-200 bg-stone-50 text-left text-xs font-semibold uppercase tracking-wider text-stone-500">
+          <thead className="border-b border-white/10 bg-white/[0.03] text-left text-xs font-semibold uppercase tracking-wider text-ink-3">
             <tr>
               <th className="px-4 py-3">{dict.common.name}</th>
               <th className="px-4 py-3">{dict.common.category}</th>
@@ -46,17 +46,17 @@ export default async function AdminProductsPage() {
           </thead>
           <tbody>
             {rows.map((p) => (
-              <tr key={p.id} className="border-t border-stone-100">
-                <td className="px-4 py-3 font-medium text-stone-800">
+              <tr key={p.id} className="border-t border-white/[0.06]">
+                <td className="px-4 py-3 font-medium text-ink">
                   {loc(locale, p.nameHu, p.nameEn)}
                 </td>
-                <td className="px-4 py-3 text-stone-500">{p.category}</td>
+                <td className="px-4 py-3 text-ink-3">{p.category}</td>
                 <td className="px-4 py-3 text-right font-semibold tabular-nums">
                   {formatHuf(p.priceHuf, locale)}
                 </td>
                 <td
                   className={`px-4 py-3 text-right font-semibold tabular-nums ${
-                    p.stock <= 3 ? "text-orange-600" : "text-stone-700"
+                    p.stock <= 3 ? "text-orange-400" : "text-ink-2"
                   }`}
                 >
                   {p.stock}
@@ -68,7 +68,7 @@ export default async function AdminProductsPage() {
                   <div className="flex justify-end gap-1">
                     <Link
                       href={`/admin/products/${p.id}`}
-                      className="rounded-lg px-2 py-1 text-xs font-semibold text-brand-700 hover:bg-brand-50"
+                      className="rounded-lg px-2 py-1 text-xs font-semibold text-amber-glow hover:bg-amber-glow/10"
                     >
                       {dict.common.edit}
                     </Link>

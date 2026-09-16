@@ -33,7 +33,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geist.className} ${geist.variable} ${display.variable} min-h-screen bg-stone-50 text-stone-900 antialiased`}
+        className={`${geist.className} ${geist.variable} ${display.variable} film-grain min-h-screen bg-void text-ink antialiased`}
       >
         <I18nProvider locale={locale} dict={dict}>
           <Header />

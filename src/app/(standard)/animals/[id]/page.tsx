@@ -30,13 +30,13 @@ export default async function AnimalPage({
     <div>
       <Link
         href="/animals"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-500 transition-colors hover:text-brand-700"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-3 transition-colors hover:text-amber-glow"
       >
         <ArrowLeft className="h-4 w-4" strokeWidth={2} />
         {dict.common.back}
       </Link>
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
-        <div className="aspect-square overflow-hidden rounded-2xl border border-stone-200">
+        <div className="aspect-square overflow-hidden rounded-2xl border border-white/10">
           {animal.imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -49,23 +49,23 @@ export default async function AnimalPage({
           )}
         </div>
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-stone-900">
+          <h1 className="text-3xl font-bold tracking-tight text-ink">
             {loc(locale, animal.nameHu, animal.nameEn)}
           </h1>
-          <p className="mt-1 text-lg italic text-stone-400">
+          <p className="mt-1 text-lg italic text-ink-4">
             {animal.latinName}
           </p>
           <div className="mt-4 flex gap-2 text-sm font-medium">
-            <span className="rounded-full bg-brand-50 px-3 py-1 text-brand-700">
+            <span className="rounded-full bg-amber-glow/10 px-3 py-1 text-amber-glow">
               {dict.animals.sex}: {dict.animals.sexes[animal.sex] ?? animal.sex}
             </span>
             {animal.birthYear && (
-              <span className="rounded-full bg-brand-50 px-3 py-1 text-brand-700">
+              <span className="rounded-full bg-amber-glow/10 px-3 py-1 text-amber-glow">
                 {dict.animals.birthYear}: {animal.birthYear}
               </span>
             )}
           </div>
-          <p className="mt-6 whitespace-pre-line leading-relaxed text-stone-600">
+          <p className="mt-6 whitespace-pre-line leading-relaxed text-ink-2">
             {loc(locale, animal.descHu, animal.descEn)}
           </p>
         </div>

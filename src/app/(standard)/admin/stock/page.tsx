@@ -27,7 +27,7 @@ export default async function AdminStockPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold tracking-tight text-stone-900">{t.title}</h1>
+      <h1 className="text-2xl font-bold tracking-tight text-ink">{t.title}</h1>
 
       <div className="mt-6">
         <StockForm
@@ -39,12 +39,12 @@ export default async function AdminStockPage() {
         />
       </div>
 
-      <h2 className="mt-10 text-lg font-semibold text-stone-900">
+      <h2 className="mt-10 text-lg font-semibold text-ink">
         {t.history}
       </h2>
-      <div className="mt-4 overflow-x-auto rounded-2xl border border-stone-200 bg-white">
+      <div className="mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-surface">
         <table className="w-full text-sm">
-          <thead className="border-b border-stone-200 bg-stone-50 text-left text-xs font-semibold uppercase tracking-wider text-stone-500">
+          <thead className="border-b border-white/10 bg-white/[0.03] text-left text-xs font-semibold uppercase tracking-wider text-ink-3">
             <tr>
               <th className="px-4 py-3">{t.product}</th>
               <th className="px-4 py-3 text-right">+/−</th>
@@ -55,23 +55,23 @@ export default async function AdminStockPage() {
           </thead>
           <tbody>
             {movements.map(({ movement, productNameHu, productNameEn }) => (
-              <tr key={movement.id} className="border-t border-stone-100">
-                <td className="px-4 py-3 font-medium text-stone-800">
+              <tr key={movement.id} className="border-t border-white/[0.06]">
+                <td className="px-4 py-3 font-medium text-ink">
                   {loc(locale, productNameHu, productNameEn)}
                 </td>
                 <td
                   className={`px-4 py-3 text-right font-bold ${
-                    movement.change > 0 ? "text-emerald-600" : "text-red-500"
+                    movement.change > 0 ? "text-emerald-400" : "text-red-400"
                   }`}
                 >
                   {movement.change > 0 ? "+" : ""}
                   {movement.change}
                 </td>
-                <td className="px-4 py-3 text-stone-500">
+                <td className="px-4 py-3 text-ink-3">
                   {t.types[movement.type] ?? movement.type}
                 </td>
-                <td className="px-4 py-3 text-stone-500">{movement.note}</td>
-                <td className="px-4 py-3 text-stone-400">
+                <td className="px-4 py-3 text-ink-3">{movement.note}</td>
+                <td className="px-4 py-3 text-ink-4">
                   {formatDate(movement.createdAt, locale)}
                 </td>
               </tr>

@@ -35,42 +35,42 @@ export default async function AdminOrdersPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold tracking-tight text-stone-900">
+      <h1 className="text-2xl font-bold tracking-tight text-ink">
         {dict.admin.orders}
       </h1>
       <div className="mt-6 flex flex-col gap-4">
         {rows.map(({ order, userName }) => (
           <div
             key={order.id}
-            className="rounded-2xl border border-stone-200 bg-white p-5"
+            className="rounded-2xl border border-white/10 bg-surface p-5"
           >
             <div className="flex flex-wrap items-center gap-3">
-              <span className="font-semibold text-stone-900">#{order.id}</span>
-              <span className="text-sm text-stone-500">
+              <span className="font-semibold text-ink">#{order.id}</span>
+              <span className="text-sm text-ink-3">
                 {formatDate(order.createdAt, locale)}
               </span>
-              <span className="ml-auto font-semibold text-stone-900">
+              <span className="ml-auto font-semibold text-ink">
                 {formatHuf(order.totalHuf, locale)}
               </span>
               <OrderStatusSelect orderId={order.id} current={order.status} />
             </div>
             <div className="mt-3 grid gap-4 text-sm sm:grid-cols-2">
               <div>
-                <p className="font-bold text-stone-700">
+                <p className="font-bold text-ink-2">
                   {dict.admin.order.customer}: {userName}
                 </p>
-                <p className="text-stone-500">{order.customerName}</p>
-                <p className="text-stone-500">{order.email}</p>
-                {order.phone && <p className="text-stone-500">{order.phone}</p>}
-                <p className="text-stone-500">
+                <p className="text-ink-3">{order.customerName}</p>
+                <p className="text-ink-3">{order.email}</p>
+                {order.phone && <p className="text-ink-3">{order.phone}</p>}
+                <p className="text-ink-3">
                   {order.zip} {order.city}, {order.address}
                 </p>
-                <p className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-stone-400">
+                <p className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-ink-4">
                   {dict.orders.payments[order.paymentMethod] ??
                     order.paymentMethod}{" "}
                   ·{" "}
                   {order.coinsAwarded ? (
-                    <span className="inline-flex items-center gap-1 text-amber-600">
+                    <span className="inline-flex items-center gap-1 text-amber-glow">
                       <Coins className="h-3.5 w-3.5" strokeWidth={2} />
                       {dict.admin.order.awarded}
                     </span>
@@ -79,7 +79,7 @@ export default async function AdminOrdersPage() {
                   )}
                 </p>
               </div>
-              <ul className="flex flex-col gap-1 text-stone-600">
+              <ul className="flex flex-col gap-1 text-ink-2">
                 {items
                   .filter((i) => i.orderId === order.id)
                   .map((i) => (
@@ -95,7 +95,7 @@ export default async function AdminOrdersPage() {
           </div>
         ))}
         {rows.length === 0 && (
-          <p className="text-center text-stone-500">{dict.orders.empty}</p>
+          <p className="text-center text-ink-3">{dict.orders.empty}</p>
         )}
       </div>
     </div>

@@ -8,11 +8,11 @@ import { getDict, loc } from "@/lib/i18n";
 import { formatDate, formatHuf } from "@/lib/utils";
 
 const STATUS_COLORS: Record<string, string> = {
-  pending: "bg-amber-100 text-amber-800",
-  paid: "bg-emerald-100 text-emerald-800",
-  shipped: "bg-sky-100 text-sky-800",
+  pending: "bg-amber-glow/15 text-amber-glow",
+  paid: "bg-emerald-400/15 text-emerald-300",
+  shipped: "bg-sky-400/15 text-sky-300",
   delivered: "bg-teal-100 text-teal-800",
-  cancelled: "bg-stone-100 text-stone-500",
+  cancelled: "bg-white/[0.06] text-ink-3",
 };
 
 export default async function OrdersPage({
@@ -48,37 +48,37 @@ export default async function OrdersPage({
   return (
     <div>
       {success && (
-        <div className="mb-8 flex items-start gap-3 rounded-xl border border-brand-200 bg-brand-50 p-5">
+        <div className="mb-8 flex items-start gap-3 rounded-xl border border-amber-glow/30 bg-amber-glow/10 p-5">
           <CheckCircle2
-            className="mt-0.5 h-6 w-6 shrink-0 text-brand-600"
+            className="mt-0.5 h-6 w-6 shrink-0 text-amber-glow"
             strokeWidth={2}
           />
           <div>
-            <h2 className="text-lg font-semibold text-brand-900">
+            <h2 className="text-lg font-semibold text-amber-glow">
               {dict.checkout.success}
             </h2>
-            <p className="mt-1 text-sm text-brand-700/80">
+            <p className="mt-1 text-sm text-amber-glow/80">
               {dict.checkout.successText}
             </p>
           </div>
         </div>
       )}
 
-      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
+      <h1 className="text-3xl font-bold tracking-tight text-ink">
         {dict.orders.title}
       </h1>
 
       {myOrders.length === 0 ? (
-        <p className="mt-16 text-center text-stone-500">{dict.orders.empty}</p>
+        <p className="mt-16 text-center text-ink-3">{dict.orders.empty}</p>
       ) : (
         <div className="mt-8 flex flex-col gap-4">
           {myOrders.map((order) => (
             <div
               key={order.id}
-              className="rounded-xl border border-stone-200 bg-white p-5"
+              className="rounded-xl border border-white/10 bg-surface p-5"
             >
               <div className="flex flex-wrap items-center gap-3">
-                <span className="font-semibold text-stone-900">
+                <span className="font-semibold text-ink">
                   {dict.orders.order} #{order.id}
                 </span>
                 <span
@@ -86,14 +86,14 @@ export default async function OrdersPage({
                 >
                   {dict.orders.statuses[order.status] ?? order.status}
                 </span>
-                <span className="text-sm text-stone-400">
+                <span className="text-sm text-ink-4">
                   {formatDate(order.createdAt, locale)}
                 </span>
-                <span className="ml-auto font-semibold text-stone-900">
+                <span className="ml-auto font-semibold text-ink">
                   {formatHuf(order.totalHuf, locale)}
                 </span>
               </div>
-              <ul className="mt-3 flex flex-col gap-1 text-sm text-stone-600">
+              <ul className="mt-3 flex flex-col gap-1 text-sm text-ink-2">
                 {items
                   .filter((i) => i.orderId === order.id)
                   .map((i) => (
@@ -105,11 +105,11 @@ export default async function OrdersPage({
                     </li>
                   ))}
               </ul>
-              <p className="mt-3 flex items-center gap-2 text-xs text-stone-400">
+              <p className="mt-3 flex items-center gap-2 text-xs text-ink-4">
                 {dict.orders.payments[order.paymentMethod] ??
                   order.paymentMethod}
                 {order.coinsAwarded && (
-                  <span className="inline-flex items-center gap-1 text-amber-600">
+                  <span className="inline-flex items-center gap-1 text-amber-glow">
                     <Coins className="h-3.5 w-3.5" strokeWidth={2} />+
                     {formatHuf(order.totalHuf, locale).replace(" Ft", "")}{" "}
                     SaurusCoin

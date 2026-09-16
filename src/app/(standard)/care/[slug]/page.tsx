@@ -29,17 +29,17 @@ export default async function ArticlePage({
     <article className="mx-auto max-w-3xl">
       <Link
         href="/care"
-        className="text-sm font-medium text-stone-500 transition-colors hover:text-brand-700"
+        className="text-sm font-medium text-ink-3 transition-colors hover:text-amber-glow"
       >
         ← {dict.care.title}
       </Link>
-      <span className="mt-6 block text-xs font-bold uppercase tracking-wide text-emerald-600">
+      <span className="mt-6 block text-xs font-bold uppercase tracking-wide text-emerald-400">
         {dict.care.categories[article.category] ?? article.category}
       </span>
-      <h1 className="mt-2 text-4xl font-bold tracking-tight text-stone-900">
+      <h1 className="mt-2 text-4xl font-bold tracking-tight text-ink">
         {loc(locale, article.titleHu, article.titleEn)}
       </h1>
-      <p className="mt-2 text-sm text-stone-400">
+      <p className="mt-2 text-sm text-ink-4">
         {formatDate(article.createdAt, locale)}
       </p>
       {article.imageUrl && (
@@ -50,7 +50,7 @@ export default async function ArticlePage({
           className="mt-6 w-full rounded-2xl object-cover"
         />
       )}
-      <div className="prose prose-stone mt-8 max-w-none whitespace-pre-line text-stone-700">
+      <div className="prose prose-stone mt-8 max-w-none whitespace-pre-line text-ink-2">
         {content}
       </div>
     </article>

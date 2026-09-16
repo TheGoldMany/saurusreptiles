@@ -5,7 +5,7 @@ export default async function NewAnimalPage() {
   const { dict } = await getDict();
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold tracking-tight text-stone-900">
+      <h1 className="mb-6 text-2xl font-bold tracking-tight text-ink">
         {dict.admin.animal.new}
       </h1>
       <AnimalForm />

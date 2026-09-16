@@ -36,7 +36,7 @@ export default async function AdminLayout({
   return (
     <div className="grid gap-8 lg:grid-cols-[220px_1fr]">
       <aside>
-        <h2 className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-stone-400">
+        <h2 className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-ink-4">
           {dict.admin.title}
         </h2>
         <nav className="flex flex-row flex-wrap gap-1 lg:flex-col">
@@ -44,7 +44,7 @@ export default async function AdminLayout({
             <Link
               key={href}
               href={href}
-              className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-100 hover:text-stone-900"
+              className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-ink-2 transition-colors hover:bg-white/[0.06] hover:text-ink"
             >
               <Icon className="h-4 w-4" strokeWidth={2} />
               {label}

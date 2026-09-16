@@ -23,7 +23,7 @@ export default function OrderStatusSelect({
       onChange={(e) =>
         startTransition(() => setOrderStatus(orderId, e.target.value))
       }
-      className="rounded-lg border border-stone-200 bg-white px-2 py-1.5 text-sm font-medium outline-none focus:border-emerald-500 disabled:opacity-50"
+      className="rounded-lg border border-white/10 bg-surface px-2 py-1.5 text-sm font-medium outline-none focus:border-emerald-500 disabled:opacity-50"
     >
       {STATUSES.map((s) => (
         <option key={s} value={s}>

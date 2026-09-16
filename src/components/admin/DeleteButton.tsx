@@ -19,7 +19,7 @@ export default function DeleteButton({
           startTransition(() => onDelete());
         }
       }}
-      className="rounded-lg px-2 py-1 text-xs font-semibold text-red-600 hover:bg-red-50 disabled:opacity-50"
+      className="rounded-lg px-2 py-1 text-xs font-semibold text-red-400 hover:bg-red-500/10 disabled:opacity-50"
     >
       {dict.common.delete}
     </button>

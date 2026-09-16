@@ -16,15 +16,15 @@ export default async function CartPage() {
   if (cart.length === 0) {
     return (
       <div className="py-20 text-center">
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-stone-100 text-stone-400">
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.06] text-ink-4">
           <ShoppingCart className="h-8 w-8" strokeWidth={1.5} />
         </span>
-        <h1 className="mt-5 text-2xl font-semibold tracking-tight text-stone-900">
+        <h1 className="mt-5 text-2xl font-semibold tracking-tight text-ink">
           {dict.cart.empty}
         </h1>
         <Link
           href="/shop"
-          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-brand-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-700"
+          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-amber-glow px-6 py-3 font-semibold text-void transition-colors hover:bg-amber-soft"
         >
           {dict.cart.goShopping}
           <ArrowRight className="h-4 w-4" strokeWidth={2} />
@@ -58,7 +58,7 @@ export default async function CartPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold tracking-tight text-stone-900">
+      <h1 className="text-3xl font-bold tracking-tight text-ink">
         {dict.cart.title}
       </h1>
       <div className="mt-8 grid gap-8 lg:grid-cols-3">
@@ -66,7 +66,7 @@ export default async function CartPage() {
           {items.map(({ product, quantity }) => (
             <div
               key={product.id}
-              className="flex items-center gap-4 rounded-xl border border-stone-200 bg-white p-4"
+              className="flex items-center gap-4 rounded-xl border border-white/10 bg-surface p-4"
             >
               <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg">
                 {product.imageUrl ? (
@@ -86,11 +86,11 @@ export default async function CartPage() {
               <div className="min-w-0 flex-1">
                 <Link
                   href={`/shop/${product.slug}`}
-                  className="font-medium text-stone-800 transition-colors hover:text-brand-700"
+                  className="font-medium text-ink transition-colors hover:text-amber-glow"
                 >
                   {loc(locale, product.nameHu, product.nameEn)}
                 </Link>
-                <p className="text-sm font-semibold text-stone-500">
+                <p className="text-sm font-semibold text-ink-3">
                   {formatHuf(product.priceHuf, locale)}
                 </p>
               </div>
@@ -99,29 +99,29 @@ export default async function CartPage() {
                 quantity={quantity}
                 maxStock={product.stock}
               />
-              <span className="w-24 text-right font-semibold text-stone-900">
+              <span className="w-24 text-right font-semibold text-ink">
                 {formatHuf(product.priceHuf * quantity, locale)}
               </span>
             </div>
           ))}
         </div>
 
-        <div className="h-fit rounded-xl border border-stone-200 bg-white p-6">
+        <div className="h-fit rounded-xl border border-white/10 bg-surface p-6">
           <div className="flex items-center justify-between text-lg">
-            <span className="font-medium text-stone-500">
+            <span className="font-medium text-ink-3">
               {dict.common.total}
             </span>
-            <span className="font-bold text-stone-900">
+            <span className="font-bold text-ink">
               {formatHuf(total, locale)}
             </span>
           </div>
-          <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-amber-700">
+          <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-amber-glow">
             <Coins className="h-4 w-4" strokeWidth={2} />
             {dict.cart.coinsEarn} {formatCoins(total, locale)}
           </p>
           <Link
             href="/checkout"
-            className="mt-6 flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-center font-semibold text-white transition-colors hover:bg-brand-700"
+            className="mt-6 flex items-center justify-center gap-2 rounded-lg bg-amber-glow px-6 py-3 text-center font-semibold text-void transition-colors hover:bg-amber-soft"
           >
             {dict.cart.checkout}
             <ArrowRight className="h-4 w-4" strokeWidth={2} />

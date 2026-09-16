@@ -25,7 +25,7 @@ export default async function EditAnimalPage({
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold tracking-tight text-stone-900">
+      <h1 className="mb-6 text-2xl font-bold tracking-tight text-ink">
         {dict.admin.animal.edit}
       </h1>
       <AnimalForm animal={animal} />

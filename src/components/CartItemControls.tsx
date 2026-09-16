@@ -19,14 +19,14 @@ export default function CartItemControls({
 
   return (
     <div className="flex items-center gap-3">
-      <div className="flex items-center rounded-lg border border-stone-200">
+      <div className="flex items-center rounded-lg border border-white/10">
         <button
           disabled={pending}
           onClick={() =>
             startTransition(() => setCartQuantity(productId, quantity - 1))
           }
           aria-label="−"
-          className="p-2 text-stone-500 hover:text-brand-700 disabled:opacity-40"
+          className="p-2 text-ink-3 hover:text-amber-glow disabled:opacity-40"
         >
           <Minus className="h-3.5 w-3.5" strokeWidth={2.5} />
         </button>
@@ -39,7 +39,7 @@ export default function CartItemControls({
             startTransition(() => setCartQuantity(productId, quantity + 1))
           }
           aria-label="+"
-          className="p-2 text-stone-500 hover:text-brand-700 disabled:opacity-40"
+          className="p-2 text-ink-3 hover:text-amber-glow disabled:opacity-40"
         >
           <Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
         </button>
@@ -48,7 +48,7 @@ export default function CartItemControls({
         disabled={pending}
         onClick={() => startTransition(() => removeFromCart(productId))}
         aria-label={dict.cart.remove}
-        className="rounded-lg p-2 text-stone-400 transition-colors hover:bg-red-50 hover:text-red-500 disabled:opacity-50"
+        className="rounded-lg p-2 text-ink-4 transition-colors hover:bg-red-500/10 hover:text-red-400 disabled:opacity-50"
       >
         <Trash2 className="h-4 w-4" strokeWidth={1.75} />
       </button>

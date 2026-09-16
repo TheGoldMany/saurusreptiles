@@ -71,27 +71,27 @@ export const RARITY_STYLES: Record<
   { border: string; bg: string; text: string; glow: string }
 > = {
   common: {
-    border: "border-stone-300",
-    bg: "bg-stone-100",
-    text: "text-stone-600",
+    border: "border-white/15",
+    bg: "bg-white/[0.06]",
+    text: "text-ink-2",
     glow: "",
   },
   rare: {
     border: "border-sky-400",
-    bg: "bg-sky-50",
-    text: "text-sky-700",
-    glow: "shadow-sky-200",
+    bg: "bg-sky-400/10",
+    text: "text-sky-300",
+    glow: "shadow-sky-500/30",
   },
   epic: {
     border: "border-violet-500",
-    bg: "bg-violet-50",
-    text: "text-violet-700",
-    glow: "shadow-violet-200",
+    bg: "bg-violet-400/10",
+    text: "text-violet-300",
+    glow: "shadow-violet-500/30",
   },
   legendary: {
     border: "border-amber-400",
-    bg: "bg-amber-50",
-    text: "text-amber-700",
-    glow: "shadow-amber-200",
+    bg: "bg-amber-glow/10",
+    text: "text-amber-glow",
+    glow: "shadow-amber-glow/30",
   },
 };
