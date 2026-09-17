@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArrowRight } from "lucide-react";
 import { getDict } from "@/lib/i18n";
 import { getCurrentUser } from "@/lib/auth";
 import SmoothScroll from "@/components/cinematic/SmoothScroll";
@@ -43,6 +44,28 @@ export default async function BespokePage() {
               defaultName={user?.name ?? ""}
               defaultEmail={user?.email ?? ""}
             />
+
+            {/* Escalation path into the full modular architect tool */}
+            <a
+              href="/studio"
+              className="group mt-5 flex flex-wrap items-center gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-amber-glow/40 hover:bg-amber-glow/[0.06]"
+            >
+              <span className="flex-1">
+                <span className="block text-[10px] font-semibold uppercase tracking-cinematic text-amber-glow">
+                  {dict.studio.eyebrow}
+                </span>
+                <span className="mt-1.5 block font-display text-lg font-bold text-ink">
+                  {dict.studio.title}
+                </span>
+                <span className="mt-1 block max-w-xl text-[12px] leading-relaxed text-ink-3">
+                  {dict.studio.subtitle}
+                </span>
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-2 rounded-2xl bg-amber-glow px-5 py-3 text-xs font-semibold text-void transition-colors group-hover:bg-amber-soft">
+                {dict.studio.title}
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </a>
           </div>
         </section>
 

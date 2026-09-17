@@ -54,6 +54,8 @@ export function partsForBuild(tiers: Tier[]): Part[] {
 
 type FreeRect = { x: number; y: number; w: number; h: number };
 
+type Placement = { rectIndex: number; rotated: boolean; waste: number };
+
 /**
  * Guillotine shelf-packing with best-area-fit and free-rectangle splitting.
  *
@@ -131,18 +133,23 @@ export function nestParts(
 
   // --- helpers ---
 
-  function findBestFree(free: FreeRect[], part: Part) {
-    let best: { rectIndex: number; rotated: boolean; waste: number } | null = null;
+  function findBestFree(free: FreeRect[], part: Part): Placement | null {
+    // A plain loop, not forEach: TypeScript does not track assignments made
+    // inside a callback, which narrows the accumulator to `never`.
+    let best: Placement | null = null;
 
-    free.forEach((rect, rectIndex) => {
+    for (let rectIndex = 0; rectIndex < free.length; rectIndex++) {
+      const rect = free[rectIndex];
       for (const rotated of [false, true]) {
         const pw = (rotated ? part.h : part.w) + KERF;
         const ph = (rotated ? part.w : part.h) + KERF;
         if (pw > rect.w || ph > rect.h) continue;
         const waste = rect.w * rect.h - pw * ph;
-        if (!best || waste < best.waste) best = { rectIndex, rotated, waste };
+        if (best === null || waste < best.waste) {
+          best = { rectIndex, rotated, waste };
+        }
       }
-    });
+    }
 
     return best;
   }
